@@ -8,7 +8,7 @@ export default class Header extends Component {
 		}
 	}
 
-	componentWillMount() {
+	componentDidMount() {
 		let path = window.location.pathname;
 		let header;
 		if (path === '/' || path === '/login' || path === '/register') {
