@@ -10,8 +10,11 @@ export default {
 		return axios.post(path+'/login', {email: email, password: password}, {headers: headers});
 	},
 
-	signUp: function(email, password, password2){
-		return axios.post(path+'/signUp', {email: email, password: password, password2: password2}, {headers: headers});
+	signUp: function(body){
+		delete body.password2;
+		delete body.filled;
+		delete body.errorMessage;
+		return axios.post(path+'/signUp', body, {headers: headers});
 	},
 
 	isAuth: function(){
@@ -21,9 +24,12 @@ export default {
 				if (err) return {logged: false};
 				else return jwt.verify(token, config.SECRET);
 			})
-			//return {logged: false}; 
 		}
 		else return {logged: false};
+	},
+
+	setToken: function(data){
+		return jwt.sign(data, config.SECRET)
 	},
 
 	logOut: function(){

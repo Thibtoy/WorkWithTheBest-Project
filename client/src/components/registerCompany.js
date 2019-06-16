@@ -1,12 +1,12 @@
 import React, {Component} from 'react';
 import API from '../utils/API.js';
 
-export default class RegisterUser extends Component {
+export default class RegisterCompany extends Component {
 	constructor() {
 		super();
 		this.state = {
-			firstName: false,
-			lastName: false,
+			name: false,
+			siret: false,
 			email: false,
 			password: false,
 			password2: false,
@@ -35,7 +35,7 @@ export default class RegisterUser extends Component {
 			if (this.state.filled) {
 				if (this.state.password === this.state.password2) {
 					let promise = new Promise (function(resolve, reject){
-						let token = API.setToken({type: 'users'});
+						let token = API.setToken({type: 'companies'});
 						resolve(token);
 					});
 					promise.then(token => {
@@ -66,10 +66,10 @@ export default class RegisterUser extends Component {
 	render() {
 		return(
 			<form method="POST" className="FormStyle">
-				<label htmlFor="firstName">First Name :</label>
-				<input id="firstName" name="firstName" type="firstName" onChange={this.handleChange}/>
-				<label htmlFor="lastName">Last Name :</label>
-				<input id="lastName" name="lastName" type="lastName" onChange={this.handleChange}/>
+				<label htmlFor="name">Name :</label>
+				<input id="name" name="name" type="name" onChange={this.handleChange}/>
+				<label htmlFor="siret">Siret :</label>
+				<input id="siret" name="siret" type="siret" onChange={this.handleChange}/>
 				<label htmlFor="email">Email :</label>
 				<input id="email" name="email" type="email" onChange={this.handleChange}/>
 				<label htmlFor="password">Password :</label>
