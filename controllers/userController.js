@@ -4,33 +4,41 @@ const pH = require('password-hash');
 const jwt = require('jsonwebtoken');
 const config = require('../config/config');
 const query = require('../models/query.js');
+const nodeMailer = require('nodemailer');
 
 
 exports.signUp = function(req, res) {
-	if (req.body.email && req.body.password && req.body.password2) {
-		if (req.body.password === req.body.password2) {
-			let params = {fields: 'id', table: 'users', where:{email: req.body.email}};
+		jwt.verify(req.body.token, config.SECRET, function(err, decoded){
+			if (err) res.status(400).json(err);
+			req.body.password = pH.generate(req.body.password);
+			let params = {fields: 'id', table: decoded.type, where:{email: req.body.email}};
 			query.find(params, function(err, user){
 				if (err) res.status(400).json(err);
 				else if(!user) {
-					let params = {table: 'users', fields:{email: req.body.email, password: pH.generate(req.body.password)}};
+					delete req.body.token;
+					let params = {table: decoded.type, fields: req.body};
  					query.create(params, function(err, data){
  						if (err) res.status(400).json(err);
- 						else res.status(201).json({created: true, message:data});
+ 						else {
+ 							let token = jwt.sign({id: data.insertId, table: decoded.type}, config.SECRET);
+ 							sendValidationMail(req.body.email, token);
+ 							res.status(201).json({created: true, message:data});
+ 						}
  					});
  				}
- 				else res.status(200).json({created: false, message: "This user already exists"});
+ 				else res.status(200).json({created: false, message: "This Account already exists"});
 			});
-		}else res.status(200).json({created: false, message: "Passwords doesn't match"});
-	}else res.status(200).json({created: false, message: "All inputs must be filled"});
+			
+		})
+
 }
 
 exports.login = function(req, res) {
 	if (req.body.email && req.body.password) {
-		let params = {fields: 'email, password', table: 'users', where:{email: req.body.email}};
+		let params = {fields: 'email, password, activated', table: 'users', where:{email: req.body.email}};
 		query.find(params, function(err, user){
 			if (err) res.status(400).json(err);
-			else if (!user) res.status(200).json({message: 'This user does not exists'});
+			else if (!user || user.activated === 0) res.status(200).json({message: 'This user does not exists'});
 			else if (pH.verify(req.body.password, user.password)) {
 				let token = jwt.sign({logged: true, id: user.id}, config.SECRET);
 				res.status(200).json({authenticate: true, token: token, message: 'Successfully connected'});
@@ -38,6 +46,56 @@ exports.login = function(req, res) {
 			else res.status(200).json({authenticate: false, message: 'Incorrect password'});
 		});
 	}else res.status(200).json({authenticate: false, message: 'All inputs must be filled'});
+}
+
+exports.activateAccount = function(req, res) {
+	let token = req.query.token;
+	jwt.verify(token, config.SECRET, function(err, decoded){
+		if (err) res.status(400).json('Authentication Faillure, maybe the link that you followed is expired :3');
+		else {
+			query.update({table: decoded.table, fields: {activated: 1}, where:{id: decoded.id}})
+				.then(() => {
+					res.redirect('http://localhost:3000/');
+			})
+				.catch((err) => {
+					console.log(err);
+					res.status(400).json('Activation faillure, something went wrong');
+				})
+		}
+	})
+
+}
+
+function sendValidationMail(mail, token) {
+	let transporter = nodeMailer.createTransport({
+			service: 'gmail',
+			auth: {
+				user: config.MAIL,
+				pass: config.GMAILKEY
+			}
+		})
+	let mailConfig = {
+		from: '<noreply>',
+        to: mail,
+        subject: 'Account validation WorkWithTheBest',
+        html: '<!DOCTYPE html>'+
+			  '		<html lang="en">'+
+  			  '			<head>'+
+    		  '				<meta charset="utf-8" />'+
+    		  '			</head>'+
+    		  '			<body>'+
+    		  '				<div><p>Congratulations, your registration on WorkWithTheBest is almost done.<br />'+
+    		  '				Click on the link below to validate your account!</p><br />'+
+    		  '				<a href="http://localhost:8000/activateAccount?token='+token+'">Click Here</a>'+
+        	  '			</body>'+
+        	  '		</html>'
+	}
+	transporter.sendMail(mailConfig, function(error, info){
+     	if(error){
+        	return console.log(error);
+     	}
+	});
+	transporter.close();
 }
 
 //signUp Mongo's Method:

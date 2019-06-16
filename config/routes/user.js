@@ -6,4 +6,7 @@ module.exports = function(app) {
 
 	app.route('/login')
 		.post(userController.login);
+
+	app.route('/activateAccount')
+		.get(userController.activateAccount);
 }

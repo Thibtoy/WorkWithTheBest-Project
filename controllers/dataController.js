@@ -23,7 +23,6 @@ exports.dataDistricts = function(req, res) {
 
 		Promise.all(promises)
 		.then(success => {
-			console.log(success);
 			res.status(201).send('all good');
 		}).catch(err => {
 			console.log(err);
