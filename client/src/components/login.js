@@ -1,5 +1,7 @@
 import React from 'react';
 import API from '../utils/API.js';
+import '../styles/Form.scss';
+import '../styles/login.scss';
 
 export default class Login extends React.Component {
 	constructor(props) {
@@ -37,15 +39,17 @@ export default class Login extends React.Component {
 
 	render() {
 		return(
-			<form method="POST" className="Login">
+			<div id="Login">
+			<form method="POST" className="Form FormLogin">
                 <label htmlFor="email">Email</label>
                 <input id="email" name="email" type="email" value={this.state.email} onChange={this.handleChange}/>
                 <label htmlFor="password">Password</label>
                 <input id="password" name="password" type="password" value={this.state.password} onChange={this.handleChange}/>
-                <button onClick={this.handleSubmit}>
+                <div className="FormButton" onClick={this.handleSubmit}>
                 Connexion
-                </button>
+                </div>
 			</form>
+			</div>
 		)
 	}
 }

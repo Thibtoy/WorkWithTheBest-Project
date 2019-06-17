@@ -1,0 +1,17 @@
+@import './config.scss';
+
+#Header {
+	width: 100vw;
+	height: 5vh;
+	background-color: $color4;
+	opacity: 0.9;
+}
+
+.headerTop {
+  display: flex;
+  justify-content: space-between;
+}
+
+.headerLi {
+  display: inline-block;
+}

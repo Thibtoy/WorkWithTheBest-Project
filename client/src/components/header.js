@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
 
+import '../styles/header.scss';
+
 export default class Header extends Component {
 	constructor() {
 		super();
@@ -12,11 +14,11 @@ export default class Header extends Component {
 		let path = window.location.pathname;
 		let header;
 		if (path === '/' || path === '/login' || path === '/register') {
-			header = [<header key="1" className="headerHome"><h1 className="MasterFontSet">WorkWithTheBest</h1></header>];
+			header = [<header key="1" id="Header"><h1 className="MasterFontSet">WorkWithTheBest</h1></header>];
 		}
 		else {
 			header = [
-				<header key="1" className="header">
+				<header key="1" id="Header">
 					<ul className="headerTop">
 						<li id="hamburgerMenu" className="headerLi">M</li>
 						<li className="headerLi"><h1 className="MasterFontSet">WorkWithTheBest</h1></li>

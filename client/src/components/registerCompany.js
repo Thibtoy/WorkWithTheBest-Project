@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import API from '../utils/API.js';
+import '../styles/Form.scss';
 
 export default class RegisterCompany extends Component {
 	constructor() {
@@ -65,7 +66,9 @@ export default class RegisterCompany extends Component {
 
 	render() {
 		return(
-			<form method="POST" className="FormStyle">
+			<div id="Register">
+			<form method="POST" className="Form RegisterForm">
+				<h3 className="FormMasterFontSet">Company Account</h3>
 				<label htmlFor="name">Name :</label>
 				<input id="name" name="name" type="name" onChange={this.handleChange}/>
 				<label htmlFor="siret">Siret :</label>
@@ -76,9 +79,10 @@ export default class RegisterCompany extends Component {
 				<input id="password" name="password" type="password" onChange={this.handleChange}/>
 				<label htmlFor="password2">Confirm password :</label>
 				<input id="password2" name="password2" type="password" onChange={this.handleChange}/>
-				<p>{this.state.errorMessage}</p>
-				<button className="FormButton" onClick={this.handleSubmit}>Valider</button>
+				<p className="FormErrorFont">{this.state.errorMessage}</p>
+				<div className="FormButton" onClick={this.handleSubmit}>Confirm</div>
 			</form>
+			</div>
 		)
 	}
 }

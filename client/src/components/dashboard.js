@@ -9,7 +9,7 @@ export default class Dashboard extends React.Component {
 		}
 		this.disconnect.bind(this);
 	}
-	componentDidMount() {
+	componentWillMount() {
 		let user = API.identity();
 		this.setState({userID: user});
 	}

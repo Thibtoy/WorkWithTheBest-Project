@@ -1,0 +1,29 @@
+* {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  color: black;
+  text-align: center;
+}
+
+body {
+  width: 100vw;
+  height: 100vh;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.MasterFontSet {
+  color: white;
+}
+
+
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

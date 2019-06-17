@@ -1,0 +1,12 @@
+@import './config.scss'; 
+
+#HomePage {
+	width: 100vw;
+	height: 95vh;
+	@include flxRowCtr();
+}
+
+.HomeForm{
+	width: 25vw;
+	height: 40vh;
+}
