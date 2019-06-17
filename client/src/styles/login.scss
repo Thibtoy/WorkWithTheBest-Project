@@ -1,0 +1,11 @@
+@import './config.scss';
+
+#Login {
+	height: 95vh;
+	@include flxRowCtr();
+}
+
+.FormLogin {
+	width: 18vw;
+	height: 25vh;
+}

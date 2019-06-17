@@ -35,11 +35,12 @@ exports.signUp = function(req, res) {
 
 exports.login = function(req, res) {
 	if (req.body.email && req.body.password) {
-		let params = {fields: 'email, password, activated', table: 'users', where:{email: req.body.email}};
+		let params = {fields: 'id, email, password, activated', table: 'users', where:{email: req.body.email}};
 		query.find(params, function(err, user){
 			if (err) res.status(400).json(err);
 			else if (!user || user.activated === 0) res.status(200).json({message: 'This user does not exists'});
 			else if (pH.verify(req.body.password, user.password)) {
+				console.log(user);
 				let token = jwt.sign({logged: true, id: user.id}, config.SECRET);
 				res.status(200).json({authenticate: true, token: token, message: 'Successfully connected'});
 			}

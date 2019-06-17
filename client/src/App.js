@@ -4,12 +4,12 @@ import Header from './components/header.js';
 import Register from './components/register.js';
 import Dashboard from './components/dashboard.js';
 import Login from './components/login.js';
-import homePage from './components/homePage.js';
+import HomePage from './components/homePage.js';
 import {PrivateRoute} from './components/privateRoute.js';
 import RegisterUser from './components/registerUser.js';
 import RegisterCompany from './components/registerCompany.js';
 
-import './App.css';
+import './styles/styles.scss';
 
 export default class App extends Component {
   render() {
@@ -18,7 +18,7 @@ export default class App extends Component {
       <Header/>
         <div className="App-content">
           <Switch>
-            <Route exact path="/" component={homePage} />
+            <Route exact path="/" component={HomePage} />
             <Route exact path="/register" component={Register}/>
             <Route path="/login" component={Login} />
             <Route path={'/register/registerUser'} component={RegisterUser} />

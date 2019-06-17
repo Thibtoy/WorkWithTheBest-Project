@@ -1,0 +1,18 @@
+@import './config.scss';
+
+#Register {
+	height: 95vh;
+	@include flxRowCtr();
+}
+
+.RegisterPathForm {
+	width: 20vw;
+	height: 25vh;
+}
+
+.RegisterForm {
+	width: 18vw;
+	height: 50vh;
+	min-width: 250px;
+	min-height: 450px;
+}

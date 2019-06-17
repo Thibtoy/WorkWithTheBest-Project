@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import API from '../utils/API.js';
+import '../styles/Form.scss';
 
 export default class RegisterUser extends Component {
 	constructor() {
@@ -65,20 +66,25 @@ export default class RegisterUser extends Component {
 
 	render() {
 		return(
-			<form method="POST" className="FormStyle">
-				<label htmlFor="firstName">First Name :</label>
-				<input id="firstName" name="firstName" type="firstName" onChange={this.handleChange}/>
-				<label htmlFor="lastName">Last Name :</label>
-				<input id="lastName" name="lastName" type="lastName" onChange={this.handleChange}/>
-				<label htmlFor="email">Email :</label>
-				<input id="email" name="email" type="email" onChange={this.handleChange}/>
-				<label htmlFor="password">Password :</label>
-				<input id="password" name="password" type="password" onChange={this.handleChange}/>
-				<label htmlFor="password2">Confirm password :</label>
-				<input id="password2" name="password2" type="password" onChange={this.handleChange}/>
-				<p>{this.state.errorMessage}</p>
-				<button className="FormButton" onClick={this.handleSubmit}>Valider</button>
+			<div id="Register">
+			<form method="POST" className="Form RegisterForm">
+				<h3 className="FormMasterFontSet">User Account</h3>
+				<div className="FormInputContainer">
+					<label htmlFor="firstName">First Name :</label>
+					<input id="firstName" name="firstName" type="firstName" onChange={this.handleChange}/>
+					<label htmlFor="lastName">Last Name :</label>
+					<input id="lastName" name="lastName" type="lastName" onChange={this.handleChange}/>
+					<label htmlFor="email">Email :</label>
+					<input id="email" name="email" type="email" onChange={this.handleChange}/>
+					<label htmlFor="password">Password :</label>
+					<input id="password" name="password" type="password" onChange={this.handleChange}/>
+					<label htmlFor="password2">Confirm password :</label>
+					<input id="password2" name="password2" type="password" onChange={this.handleChange}/>
+				</div>
+				<p className="FormErrorFont">{this.state.errorMessage}</p>
+				<div className="FormButton" onClick={this.handleSubmit}>Confirm</div>
 			</form>
+			</div>
 		)
 	}
 }
