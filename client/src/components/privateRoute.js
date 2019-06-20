@@ -1,12 +1,12 @@
 import React from 'react';
 import API from '../utils/API.js';
-import {Route, Redirect} from 'react-router-dom';
+import {Route} from 'react-router-dom';
 
-export const PrivateRoute = ({component: Component, ...rest}) => (
+export const PrivateRoute = ({component: Component, prop, ...rest}) => (
 	<Route {...rest} render={(props) => {
 			if(API.isAuth().logged) {
-				return (<Component {...props} />);
+				return (<Component {...props} pageName={prop} />);
 			}
-			else return(<Redirect to='/login' />);
+			else return(window.location = '/login');
 	}} />
-)
+);

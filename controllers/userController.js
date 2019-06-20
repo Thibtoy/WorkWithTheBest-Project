@@ -34,19 +34,21 @@ exports.signUp = function(req, res) {
 }
 
 exports.login = function(req, res) {
-	if (req.body.email && req.body.password) {
-		let params = {fields: 'id, email, password, activated', table: 'users', where:{email: req.body.email}};
+	jwt.verify(req.body.token, config.SECRET, function(err, decoded){
+	if (err) res.status(400).json(err);	
+	else {
+		let params = {fields: 'id, email, password, activated', table: decoded.type, where:{email: req.body.email}};
 		query.find(params, function(err, user){
 			if (err) res.status(400).json(err);
 			else if (!user || user.activated === 0) res.status(200).json({message: 'This user does not exists'});
 			else if (pH.verify(req.body.password, user.password)) {
-				console.log(user);
 				let token = jwt.sign({logged: true, id: user.id}, config.SECRET);
 				res.status(200).json({authenticate: true, token: token, message: 'Successfully connected'});
 			}
 			else res.status(200).json({authenticate: false, message: 'Incorrect password'});
 		});
-	}else res.status(200).json({authenticate: false, message: 'All inputs must be filled'});
+	}
+	});
 }
 
 exports.activateAccount = function(req, res) {

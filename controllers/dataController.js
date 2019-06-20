@@ -1,6 +1,7 @@
 const query = require('../models/query');
 const axios = require('axios');
 const convert = require('xml-js');
+const pH = require('password-hash');
 
 exports.dataDistricts = function(req, res) {
 	axios.get('https://geo.api.gouv.fr/departements').then(response => {
@@ -116,4 +117,139 @@ exports.dataActivity = function(req, res) {
 			console.log(err);
 			res.status(200).send('error');
 		});
+}
+
+
+exports.dataUsers = function(req, res) {
+	let promises =[];
+	let profiles = [
+		{user: {firstName: 'Jean', lastName: 'Jeannot', email: 'jeanjeannot@jémail.com', password: pH.generate('coucou'), activated: 1},
+		 activity: {id: 4951}, location: {name: 'Strasbourg'}
+		},
+		{user: {firstName: 'Jeanne', lastName: 'Jeanine-Jackson', email: 'jeannejeaninejeanjackson@jémail.com', password: pH.generate('coucou'), activated: 1},
+		 activity: {id: 9593}, location: {name: 'Paris'}
+		},
+		{user: {firstName: 'Marc', lastName: 'Marcus', email: 'marcmarcus@jémail.com', password: pH.generate('coucou'), activated: 1},
+		 activity: {id: 3781}, location: {name: 'Grenoble'}
+		},
+		{user: {firstName: 'Julio', lastName: 'Juliogàs', email: 'juliogàs@jémail.com', password: pH.generate('coucou'), activated: 1},
+		 activity: {id: 1410}, location: {name: 'Perpignan'}
+		},
+		{user: {firstName: 'Faustine', lastName: 'Foster', email: 'fausfoster@jémail.com', password: pH.generate('coucou'), activated: 1},
+		 activity: {id: 2658}, location: {name: 'Reims'}
+		},
+		{user: {firstName: 'Marco', lastName: 'Paulo', email: 'marcopaulo@cépasuneblague.com', password: pH.generate('coucou'), activated: 1},
+		 activity: {id: 9387}, location: {name: 'Avignon'}
+		},
+		{user: {firstName: 'Jean', lastName: 'Jeannot', email: 'jeanjeannot@jémail.com', password: pH.generate('coucou'), activated: 1},
+		 activity: {id: 512}, location: {name: 'Verderel-lès-Sauqueuse'}
+		},
+		{user: {firstName: 'Paula', lastName: 'Paulette', email: 'paupau@jémail.com', password: pH.generate('coucou'), activated: 1},
+		 activity: {id: 7079}, location: {name: 'Clergoux'}
+		},
+		{user: {firstName: 'Colin', lastName: 'Maillard', email: 'colinmaillard@cépasuneblague.com', password: pH.generate('coucou'), activated: 1},
+		 activity: {id: 3514}, location: {name: 'Saint-Nom-la-Bretèche'}
+		},
+		{user: {firstName: 'Christinne', lastName: 'Kirstensen', email: 'krikri@jémail.com', password: pH.generate('coucou'), activated: 1},
+		 activity: {id: 9176}, location: {name: 'Marly-Gomont'}
+		},	
+	];
+
+	profiles.forEach(function(profile){
+		promises.push(new Promise(function(resolve, reject){
+			query.test({table: 'users', fields: profile.user})
+				.then(success => {
+					let location = profile.location.name;
+					let params = {fields: 'id, name', table: 'locations', where:{name: location}}
+					query.find(params, function(err, data){
+						params = {userId: success, locationId: data.id};
+						query.test({table: 'userToLocation', fields: params})
+							 .then(resuccess => {
+							 	params = {userId: success, activityId: profile.activity.id}
+							 	query.test({table: 'userToActivity', fields: params})
+							 		 .then(success => {
+							 		 	resolve(success);							 		 
+							 		 })
+							 		 .catch(err => {
+							 		 	console.log(err);
+							 		 	reject(err);
+							 		 })
+							 })
+							 .catch(err => {
+								console.log(err);
+								reject(err);
+							 });	
+					});
+				})
+				.catch(err => {
+					console.log(err);
+					reject(err);
+				});
+		}));
+	});
+	Promise.all(promises).then(success => res.status(200).json('yes'))
+						 .catch(err => res.status(200).json('something went wrong'));
+}
+
+exports.dataCompanies = function(req, res) {
+	let promises =[];
+	let profiles = [
+		{user: {name: 'Les cerceuils chantants', siret: '000000000', description: 'Fabricants de cerceuils', email: 'lescerceuilschantant@jémail.com', password: pH.generate('coucou'), activated: 1},
+		  location: {name: 'Aigues-Mortes'}
+		},
+		{user: {name: 'Lave\'auto', siret: '000000001', description: 'Laveur d\'auto/moto', email: 'lelaveauto@jémail.com', password: pH.generate('coucou'), activated: 1},
+		  location: {name: 'Ablaincourt-Pressoir'}
+		},
+		{user: {name: 'La charcuterie Corse', siret: '000000002', description: 'Vente de sandwichs à base de charcuterie', email: 'marcmarcus@jémail.com', password: pH.generate('coucou'), activated: 1},
+		  location: {name: 'Bordeaux'}
+		},
+		{user: {name: 'Mamy\'s SPA', siret: '000000003', description: 'Spa pour personnes agées', email: 'mamyspa@jémail.com', password: pH.generate('coucou'), activated: 1},
+		  location: {name: 'Gigors-et-Lozeron'}
+		},
+		{user: {name: 'Centre Géologique', siret: '000000004', description: 'Recherches géologiques', email: 'géo@jémail.com', password: pH.generate('coucou'), activated: 1},
+		  location: {name: 'Volvic'}
+		},
+		{user: {name: 'La compagnie Gengis Khan', siret: '000000005', description: 'Troupe de théatre', email: 'gengiskhan@cépasuneblague.com', password: pH.generate('coucou'), activated: 1},
+		  location: {name: 'Gigors-et-Lozeron'}
+		},
+		{user: {name: 'La ferme du moulin', siret: '000000006', description: 'Corps agricole', email: 'lafermedumoulin@jémail.com', password: pH.generate('coucou'), activated: 1},
+		 location: {name: 'Limoux'}
+		},
+		{user: {name: 'Nucleaire&Cie', siret: '000000007', description: 'Groupe de recherche et promotion du nucleaire', email: 'tchernobyl@jémail.com', password: pH.generate('coucou'), activated: 1},
+		  location: {name: 'Senuc'}
+		},
+		{user: {name: 'ClubMeud', siret: '000000008', description: 'Entreprise proposant des voyages à thèmes dans des camps de vaccances', email: 'clubmeud@cépasuneblague.com', password: pH.generate('coucou'), activated: 1},
+		  location: {name: 'Vaulx-en-Velin'}
+		},
+		{user: {name: 'Les studios Buc Lessons', siret: '000000009', description: 'Studios de production de sitcom', email: 'buclessonstudio@jémail.com', password: pH.generate('coucou'), activated: 1},
+		  location: {name: 'Vallorcine'}
+		},	
+	];
+
+	profiles.forEach(function(profile){
+		promises.push(new Promise(function(resolve, reject){
+			query.test({table: 'companies', fields: profile.user})
+				.then(success => {
+					let location = profile.location.name;
+					let params = {fields: 'id, name', table: 'locations', where:{name: location}}
+					query.find(params, function(err, data){
+						params = {companyId: success, locationId: data.id};
+						query.test({table: 'companyToLocation', fields: params})
+							 .then(success => {
+							 	resolve(success);
+							 })
+							 .catch(err => {
+								console.log(err);
+								reject(err);
+							 });	
+					});
+				})
+				.catch(err => {
+					console.log(err);
+					reject(err);
+				});
+		}));
+	});
+	Promise.all(promises).then(success => res.status(200).json('yes'))
+						 .catch(err => res.status(200).json('something went wrong'));
 }

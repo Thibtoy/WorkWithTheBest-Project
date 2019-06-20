@@ -69,7 +69,7 @@ export default class RegisterUser extends Component {
 			<div id="Register">
 			<form method="POST" className="Form RegisterForm">
 				<h3 className="FormMasterFontSet">User Account</h3>
-				<div className="FormInputContainer">
+				<div className="FormInputContainer RegisterInputContainer">
 					<label htmlFor="firstName">First Name :</label>
 					<input id="firstName" name="firstName" type="firstName" onChange={this.handleChange}/>
 					<label htmlFor="lastName">Last Name :</label>

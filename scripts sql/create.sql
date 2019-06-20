@@ -51,7 +51,7 @@ CREATE TABLE WorkWithTheBest.userToLocation(
 	locationId INT NOT NULL
 	) ENGINE = InnoDB;
 
-CREATE TABLE WorkWithTheBest.userToActiviy (
+CREATE TABLE WorkWithTheBest.userToActivity (
 	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 	userId INT NOT NULL,
 	activityId INT NOT NULL
@@ -64,7 +64,7 @@ REFERENCES WorkWithTheBest.users(id),
 ADD CONSTRAINT FOREIGN KEY (locationId)
 REFERENCES WorkWithTheBest.locations(id);
 
-ALTER TABLE WorkWithTheBest.userToActiviy
+ALTER TABLE WorkWithTheBest.userToActivity
 ADD CONSTRAINT FOREIGN KEY(userId)
 REFERENCES WorkWithTheBest.users(id),
 ADD CONSTRAINT FOREIGN KEY (activityId)
@@ -87,7 +87,7 @@ CREATE TABLE WorkWithTheBest.companyToLocation(
 	locationId INT NOT NULL
 	) ENGINE = InnoDB;
 
-CREATE TABLE WorkWithTheBest.companyToActiviy (
+CREATE TABLE WorkWithTheBest.companyToActivity (
 	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 	companyId INT NOT NULL,
 	activityId INT NOT NULL
@@ -96,11 +96,11 @@ CREATE TABLE WorkWithTheBest.companyToActiviy (
 
 ALTER TABLE WorkWithTheBest.companyToLocation
 ADD CONSTRAINT FOREIGN KEY (companyId)
-REFERENCES WorkWithTheBest.users(id),
+REFERENCES WorkWithTheBest.companies(id),
 ADD CONSTRAINT FOREIGN KEY (locationId)
 REFERENCES WorkWithTheBest.locations(id);
 
-ALTER TABLE WorkWithTheBest.companyToActiviy
+ALTER TABLE WorkWithTheBest.companyToActivity
 ADD CONSTRAINT FOREIGN KEY(companyId)
 REFERENCES WorkWithTheBest.companies(id),
 ADD CONSTRAINT FOREIGN KEY (activityId)
@@ -112,7 +112,8 @@ CREATE TABLE WorkWithTheBest.usersOffers (
 	content TEXT NOT NULL,
 	startDate DATETIME,
 	endDate DATETIME,
-	userId INT NOT NULL
+	userId INT NOT NULL,
+	active BOOLEAN DEFAULT true
 	) ENGINE = InnoDB;
 
 ALTER TABLE WorkWithTheBest.usersOffers
@@ -137,7 +138,8 @@ CREATE TABLE WorkWithTheBest.companiesOffers (
 	content TEXT NOT NULL,
 	startDate DATETIME,
 	endDate DATETIME,
-	companyId INT NOT NULL
+	companyId INT NOT NULL,
+	active BOOLEAN DEFAULT true
 	) ENGINE = InnoDB;
 
 ALTER TABLE WorkWithTheBest.companiesOffers

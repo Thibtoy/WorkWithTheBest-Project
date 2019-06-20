@@ -12,10 +12,22 @@ import RegisterCompany from './components/registerCompany.js';
 import './styles/styles.scss';
 
 export default class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      page: '',
+    }
+    this.handlePage = this.handlePage.bind(this);
+  }
+
+  handlePage(page) {
+    this.setState({page});
+  }
+
   render() {
     return (
       <div className="App">
-      <Header/>
+      <Header pageName={this.state.page} />
         <div className="App-content">
           <Switch>
             <Route exact path="/" component={HomePage} />
@@ -23,7 +35,7 @@ export default class App extends Component {
             <Route path="/login" component={Login} />
             <Route path={'/register/registerUser'} component={RegisterUser} />
             <Route path="/register/registerCompany" component={RegisterCompany} />
-            <PrivateRoute path='/dashboard' component={Dashboard} />
+            <PrivateRoute path='/dashboard' prop={this.handlePage} component={Dashboard}   />
           </Switch>
         </div>
       </div>

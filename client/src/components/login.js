@@ -8,7 +8,9 @@ export default class Login extends React.Component {
 		super(props);
 		this.state = {
 			email: '',
-			password: ''
+			password: '',
+			token: '',
+			type: 'users',
 		}
 		this.handleChange.bind(this);
 		this.handleSubmit.bind(this);
@@ -20,15 +22,24 @@ export default class Login extends React.Component {
 
 	handleSubmit = event => {
 		event.preventDefault();
+		let that = this;
 		if (this.state.email.length === 0) return;
 		if (this.state.password.length === 0) return;
-		API.login(this.state.email, this.state.password).then(function(data){
-			localStorage.setItem('token', data.data.token);
-			window.location = "/dashboard";
-		}, function(error){
-			console.log(error);
-			return;
-		});
+		let promise = new Promise (function(resolve, reject){
+						let token = API.setToken({type: that.state.type});
+						resolve(token);
+					});
+		promise.then(token => {
+			this.setState({token});
+			API.login(this.state).then(function(data){
+				localStorage.setItem('token', data.data.token);
+				window.location = "/dashboard";
+			}, function(error){
+				console.log(error);
+				return;
+			});
+		})
+		
 	}
 
 	handleChange = event => {
@@ -41,10 +52,12 @@ export default class Login extends React.Component {
 		return(
 			<div id="Login">
 			<form method="POST" className="Form FormLogin">
+				<div className="FormInputContainer">
                 <label htmlFor="email">Email</label>
                 <input id="email" name="email" type="email" value={this.state.email} onChange={this.handleChange}/>
                 <label htmlFor="password">Password</label>
                 <input id="password" name="password" type="password" value={this.state.password} onChange={this.handleChange}/>
+                </div>
                 <div className="FormButton" onClick={this.handleSubmit}>
                 Connexion
                 </div>

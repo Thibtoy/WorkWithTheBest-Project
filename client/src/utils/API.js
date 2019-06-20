@@ -6,8 +6,9 @@ const headers = {'Content-Type': 'application/json'};
 const path = 'http://localhost:8000';
 
 export default {
-	login: function(email, password){
-		return axios.post(path+'/login', {email: email, password: password}, {headers: headers});
+	login: function(body){
+		delete body.type;
+		return axios.post(path+'/login', body, {headers: headers});
 	},
 
 	signUp: function(body){
@@ -40,7 +41,7 @@ export default {
 		let token = localStorage.getItem('token');
 		return jwt.verify(token, config.SECRET, function(err, decoded){
 			if (err) return {message: 'an error occured'};
-			else return decoded.id;
+			else return decoded;
 		})
 	}
 }
