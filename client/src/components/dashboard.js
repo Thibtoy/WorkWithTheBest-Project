@@ -11,7 +11,8 @@ export default class Dashboard extends React.Component {
 	}
 	componentWillMount() {
 		let user = API.identity();
-		this.setState({userID: user});
+		this.setState({userID: user.id});
+		this.props.pageName('Dashboard');
 	}
 
 	disconnect = event => {

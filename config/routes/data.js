@@ -8,5 +8,11 @@ module.exports = function(app) {
 		.get(dataController.dataLocations);
 
 	app.route('/dataActivity')
-		.get(dataController.dataActivity)
+		.get(dataController.dataActivity);
+
+	app.route('/dataUsers')
+		.get(dataController.dataUsers);
+
+	app.route('/dataCompanies')
+		.get(dataController.dataCompanies);
 }

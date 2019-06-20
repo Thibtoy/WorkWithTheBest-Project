@@ -1,7 +1,7 @@
 @import './config.scss';
 
 #Register {
-	height: 95vh;
+	height: 100vh;
 	@include flxRowCtr();
 }
 
@@ -15,4 +15,8 @@
 	height: 50vh;
 	min-width: 250px;
 	min-height: 450px;
+}
+
+.RegisterInputContainer {
+	height: 60%;
 }

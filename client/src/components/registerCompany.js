@@ -67,21 +67,21 @@ export default class RegisterCompany extends Component {
 	render() {
 		return(
 			<div id="Register">
-			<form method="POST" className="Form RegisterForm">
-				<h3 className="FormMasterFontSet">Company Account</h3>
-				<label htmlFor="name">Name :</label>
-				<input id="name" name="name" type="name" onChange={this.handleChange}/>
-				<label htmlFor="siret">Siret :</label>
-				<input id="siret" name="siret" type="siret" onChange={this.handleChange}/>
-				<label htmlFor="email">Email :</label>
-				<input id="email" name="email" type="email" onChange={this.handleChange}/>
-				<label htmlFor="password">Password :</label>
-				<input id="password" name="password" type="password" onChange={this.handleChange}/>
-				<label htmlFor="password2">Confirm password :</label>
-				<input id="password2" name="password2" type="password" onChange={this.handleChange}/>
-				<p className="FormErrorFont">{this.state.errorMessage}</p>
-				<div className="FormButton" onClick={this.handleSubmit}>Confirm</div>
-			</form>
+				<form method="POST" className="Form RegisterForm">
+					<h3 className="FormMasterFontSet">Company Account</h3>
+					<label htmlFor="name">Name :</label>
+					<input id="name" name="name" type="name" onChange={this.handleChange}/>
+					<label htmlFor="siret">Siret :</label>
+					<input id="siret" name="siret" type="siret" onChange={this.handleChange}/>
+					<label htmlFor="email">Email :</label>
+					<input id="email" name="email" type="email" onChange={this.handleChange}/>
+					<label htmlFor="password">Password :</label>
+					<input id="password" name="password" type="password" onChange={this.handleChange}/>
+					<label htmlFor="password2">Confirm password :</label>
+					<input id="password2" name="password2" type="password" onChange={this.handleChange}/>
+					<p className="FormErrorFont">{this.state.errorMessage}</p>
+					<div className="FormButton" onClick={this.handleSubmit}>Confirm</div>
+				</form>
 			</div>
 		)
 	}

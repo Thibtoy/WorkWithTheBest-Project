@@ -31,11 +31,21 @@ exports.find = function(options, results) {
 		let where = ' WHERE ';
 		let count = 0;
 		for (let prop in options.where){
-			where += (count === 0)? prop+" = '"+mysqlEscape(options.where[prop].toString())+"'" : ' OR '+prop+" = '"+mysqlEscape(options.where[prop].toString())+"'";
-			count++
+			if (prop === 'andlike') {
+				for (let underprop in options.where[prop]){
+					options.where[prop][underprop].forEach(function(item, i){
+						where += (i === 0)? underprop+" LIKE '%"+mysqlEscape(item.toString())+"%'" : ' AND '+underprop+" LIKE %'"+mysqlEscape(item.toString())+"'";
+					})
+				}
+			}
+			else {
+				where += (count === 0)? prop+" = '"+mysqlEscape(options.where[prop].toString())+"'" : ' OR '+prop+" = '"+mysqlEscape(options.where[prop].toString())+"'";
+				count++
+			}
 		}
 		query += where;
 	}
+	console.log(query);
 	return db.query(query, function(err, data){
 		if (err) return results(err, null);
 		else if(data.length === 0) return results(null, false);

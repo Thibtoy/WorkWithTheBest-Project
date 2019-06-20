@@ -2,14 +2,32 @@
 
 #Header {
 	width: 100vw;
-	height: 5vh;
-	background-color: $color4;
 	opacity: 0.9;
+	&, .headerTop, #NavBar{
+		background-color: $color4;
+		position: absolute;
+	}
+
+	#hamburgerMenu {
+		&:hover {
+			cursor: pointer;
+		}
+	}
+}
+
+#NavBar {
+	width: 100%;
+	height: 3vh;
+	top: 2vh;
+	transition: all 0.5s ease-in-out;
 }
 
 .headerTop {
+  width: 100%;
+  height: 5vh;
   display: flex;
   justify-content: space-between;
+  z-index: 10;
 }
 
 .headerLi {
