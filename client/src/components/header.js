@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import API from '../utils/API.js'
 import '../styles/header.scss';
 
 export default class Header extends Component {
@@ -15,13 +15,20 @@ export default class Header extends Component {
 	menuClick = event => {
 		let menu = document.getElementById('NavBar');
 		if (this.state.menu === false) {
+			event.target.classList.add('HeaderButtonActive');
 			menu.style.marginTop = '0';
 			this.setState({menu:true});
 		}
 		else {
+			event.target.classList.remove('HeaderButtonActive');
 			menu.style.marginTop = '-3vh';
 			this.setState({menu:false});
 		}
+	}
+
+	disconnect = event => {
+		API.logOut();
+		window.location = "/login";
 	}
 
 	componentWillMount() {
@@ -34,9 +41,9 @@ export default class Header extends Component {
 			header = [
 				<header key="1" id="Header">
 					<ul className="headerTop">
-						<li id="hamburgerMenu" className="headerLi" onClick={this.menuClick}>M</li>
+						<li id="hamburgerMenu" className="headerLi" onClick={this.menuClick}><img className="HeaderButton" src={process.env.PUBLIC_URL+'/images/hamburger.svg'} alt="ButtonImage"></img></li>
 						<li className="headerLi"><h1 className="MasterFontSet">WorkWithTheBest</h1></li>
-						<li id="onOffButton" className="headerLi">O</li>
+						<li id="onOffButton" className="headerLi" onClick={this.disconnect}><img className="HeaderButton" src={process.env.PUBLIC_URL+'/images/standby.svg'} alt="ButtonImage"></img></li>
 					</ul>
 					<nav id="NavBar">
 						<ul>
