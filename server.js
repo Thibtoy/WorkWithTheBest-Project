@@ -28,6 +28,9 @@ const userRoute = require('./config/routes/user');
 //à commenter une fois les datas insérées
 const dataRoute = require('./config/routes/data');
 	  dataRoute(app);
+
+const fillAppRoute = require('./config/routes/fillApp');
+	  fillAppRoute(app);
 //Mise en place du port d'écoute
 
 app.listen(8000, () => console.log('Listening on port 8000'));

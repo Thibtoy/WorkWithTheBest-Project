@@ -1,11 +1,13 @@
 @import './config.scss';
 
 #Header {
+	@include flxColCtr();
 	width: 100vw;
 	opacity: 0.9;
-	&, .headerTop, #NavBar{
+	position: sticky;
+	top: 0;
+	#NavBar, .headerTop {
 		background-color: $color4;
-		position: absolute;
 	}
 
 	#hamburgerMenu {
@@ -16,10 +18,11 @@
 }
 
 #NavBar {
+    margin-top: -3vh;
 	width: 100%;
 	height: 3vh;
-	top: 2vh;
-	transition: all 0.5s ease-in-out;
+	transition: all 0.2s ease-in-out;
+	z-index: 9;
 }
 
 .headerTop {

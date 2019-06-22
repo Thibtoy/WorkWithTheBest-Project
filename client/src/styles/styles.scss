@@ -1,3 +1,5 @@
+@import './config.scss';
+
 * {
   margin: 0;
   padding: 0;
@@ -17,7 +19,9 @@ body {
   color: white;
 }
 
-
+.SecondFontSet {
+  color: $color2;
+}
 
 @keyframes App-logo-spin {
   from {

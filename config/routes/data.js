@@ -15,4 +15,7 @@ module.exports = function(app) {
 
 	app.route('/dataCompanies')
 		.get(dataController.dataCompanies);
+
+	app.route('/dataCompaniesOffers')
+		.get(dataController.dataCompaniesOffers);
 }

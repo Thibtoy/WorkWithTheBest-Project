@@ -43,5 +43,9 @@ export default {
 			if (err) return {message: 'an error occured'};
 			else return decoded;
 		})
+	},
+
+	carrouselContent: function(body){
+		return axios.get(path+'/carrousel', body, {headers});
 	}
 }

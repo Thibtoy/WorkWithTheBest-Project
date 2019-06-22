@@ -15,11 +15,11 @@ export default class Header extends Component {
 	menuClick = event => {
 		let menu = document.getElementById('NavBar');
 		if (this.state.menu === false) {
-			menu.style.transform = 'translateY(3vh)';
+			menu.style.marginTop = '0';
 			this.setState({menu:true});
 		}
 		else {
-			menu.style.transform = 'translateY(0vh)';
+			menu.style.marginTop = '-3vh';
 			this.setState({menu:false});
 		}
 	}

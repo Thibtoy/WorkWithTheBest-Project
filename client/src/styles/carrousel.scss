@@ -1,0 +1,105 @@
+@import './config.scss';
+
+.Carrousel {
+	box-sizing: border-box;
+	background-color: $color1;
+	width: 100%;
+	height: 30vh;
+
+	@include flxColCtr();
+	justify-content: space-between;
+	padding-top: 1vh;
+	padding-bottom: 3vh;
+}
+
+.CarrouselShowLine {
+	width: 100%;
+	@include flxRowCtr();
+}
+
+.CarrouselShowSide {
+	width: 14vw;
+	height: 100%;
+	@include flxRowCtr();
+	background-color: $color1;
+	z-index: 10;
+}
+.CarrouselArrow {
+	width: 5vw;
+	height: 3vw;
+	cursor: pointer;
+	 &:active {
+	 	transform: scale(0.95);
+	 }
+}
+
+#CarrouselShow {
+	width: 72vw;
+	height: 100%;
+	@include flxRowCtr();
+	overflow: hidden;
+}
+
+.CarrouselBox{
+	width: 22vw;
+	margin: 2vh 1vw 2vh 1vw;
+	background-color: $color4;
+	height: 20vh;
+	flex: 0 0 22vw;
+	border-radius: 0.3vw;
+	transform: scale(0.9);
+	transition: transform 0.3s linear;
+}
+
+.CarrouselBoxInfosLine {
+	
+}
+
+.CarrouselBoxAvatar {
+
+}
+
+.CarrouselBoxOfferInfos {
+
+}
+
+.CarrouselBoxProfileName {
+	font-size: 14px;
+}
+
+.CarrouselBoxOfferLocation {
+
+}
+
+.CarrouselBoxOfferPeriod {
+
+}
+
+.CarrouselBoxContent {
+
+}
+
+.CarrouselBoxOfferContent {
+
+}
+
+.CarrouselLeftMove {
+	transition: margin 0.3s ease-out;
+	margin-left: -47vw;
+}
+
+.CarrouselRightMove {
+	transition: margin 0.3s ease-out;
+	margin-right: -47vw;
+}
+
+.CarrouselMajorScale {
+	box-shadow: 0 0 1vh white;
+	transform: scale(1.05);
+}
+/*carrousel.childNodes[0].style.transition = 'margin 0.50s ease-out';
+			carrousel.childNodes[0].style.marginLeft = '-47vw';
+			carrousel.childNodes[half].style.transition = 'transform 0.50s linear';
+			carrousel.childNodes[half+1].style.transition = 'transform 0.50s linear';
+			carrousel.childNodes[half].style.transform = 'scale(0.9)';
+			carrousel.childNodes[half+1].style.transform = 'scale(1.1)';*/
