@@ -253,3 +253,49 @@ exports.dataCompanies = function(req, res) {
 	Promise.all(promises).then(success => res.status(200).json('yes'))
 						 .catch(err => res.status(200).json('something went wrong'));
 }
+
+exports.dataCompaniesOffers = function(req, res) {
+	let promises = [];
+	let offers = [
+		{content: {title: 'Menuisier(sière), Fabrication de cerceuils', content: 'recherchons Menuisier/Menuisière '+
+		 'pour un poste dans notre fabrique de cerceuils', startDate: -3600000, endDate: 604800000, companyId: 1},
+	     location: 29289},
+		{content: {title: 'Vendeur(euse) de sandwichs', content: 'recherchons vendeur/vendeuse '+
+		 'pour un poste dans notre petite cahutte en bord de mer, vous vendrez des sandwichs à base '+
+		 'de charcutterie corse', startDate: 86400000, endDate: (2592000000+86400000), companyId: 3},
+		 location: 24776},
+		{content: {title: 'Animateur(trice) en aqua gymnastique', content: 'recherchons animateur(trice) '+
+		 'pour un poste dans notre superbe spa, le Mamy\'s SPA', startDate: 2592000000, endDate: 2592000000*2, companyId: 4},
+		 location: 25384}
+	];
+
+	offers.forEach(function(offer){
+		promises.push(
+			new Promise(function(resolve, reject){
+				let startDate = new Date(Date.now()+offer.content.startDate),
+					endDate = new Date(Date.now()+offer.content.endDate);
+				offer.content.startDate = startDate.getFullYear()+"-"+(startDate.getMonth()+1)+"-"+startDate.getDate()+" "+startDate.getHours()+":"+startDate.getMinutes()+":"+startDate.getSeconds();
+				offer.content.endDate = endDate.getFullYear()+"-"+(endDate.getMonth()+1)+"-"+endDate.getDate()+" "+endDate.getHours()+":"+endDate.getMinutes()+":"+endDate.getSeconds();
+				query.test({table: "companiesOffers", fields: offer.content})
+		 			 .then(success => {
+		 				query.test({table: 'companiesOffersToLocation', fields: {offerId: success, locationId: offer.location}})
+		 					.then(success => resolve(success))
+		 					.catch(err => reject(err));
+		 			})
+		 			 .catch(err => {
+		 				console.log(err);
+		 				reject(err);
+		 			});
+			})
+		);
+	});
+
+	Promise.all(promises).then(success => res.status(200).json('cégood'))	
+						 .catch(err => res.status(200).json('something went wrong'));
+}
+
+//1 year: 31 622 400 000ms
+//1 month: 2 592 000 000ms
+//1 day: 86 400 000ms
+//1 week: 604 800 000ms
+//1 hour: 3 600 000ms

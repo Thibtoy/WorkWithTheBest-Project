@@ -28,7 +28,7 @@ export default class App extends Component {
     return (
       <div className="App">
       <Header pageName={this.state.page} />
-        <div className="App-content">
+        <div id="App-content">
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route exact path="/register" component={Register}/>

@@ -1,5 +1,7 @@
 import React from 'react';
 import API from '../utils/API.js';
+import Carrousel from './carrousel.js';
+import '../styles/dashboard.scss';
 
 export default class Dashboard extends React.Component {
 	constructor(props){
@@ -21,10 +23,10 @@ export default class Dashboard extends React.Component {
 	}
 	render() {
 		return(
-			<div className="Dashboard">
-				<h1>Dashboard</h1>
+			<div id="Dashboard">
+				<Carrousel />
 				<h2>Bonjour {this.state.userID}</h2>
-				<button onClick={this.disconnect}>
+				<button id="test" onClick={this.disconnect}>
 					Se Déconnecter
 				</button>
 			</div>
