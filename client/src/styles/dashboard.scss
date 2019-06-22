@@ -1,3 +1,18 @@
 body {
 	background: linear-gradient(#CCCCCC, white);
 }
+
+#DashboardOffersBoard {
+	width: 85vw;
+	margin: auto;
+	margin-top: 3vh;
+	background-color: white;
+	min-height: 62vh;
+}
+
+.DashboardFilterIcon {
+	width: 3vw;
+	position: relative;
+	left: 40vw;
+	top: 1vw;
+}

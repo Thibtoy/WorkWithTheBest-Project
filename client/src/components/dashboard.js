@@ -9,7 +9,6 @@ export default class Dashboard extends React.Component {
 		this.state = {
 			userID : '',
 		}
-		this.disconnect.bind(this);
 	}
 	componentWillMount() {
 		let user = API.identity();
@@ -17,18 +16,14 @@ export default class Dashboard extends React.Component {
 		this.props.pageName('Dashboard');
 	}
 
-	disconnect = event => {
-		API.logOut();
-		window.location = "/login";
-	}
 	render() {
 		return(
 			<div id="Dashboard">
 				<Carrousel />
-				<h2>Bonjour {this.state.userID}</h2>
-				<button id="test" onClick={this.disconnect}>
-					Se Déconnecter
-				</button>
+				<div id="DashboardOffersBoard">
+					<img className="DashboardFilterIcon" src={process.env.PUBLIC_URL+'/images/filter.svg'} alt="FilterImage"></img>
+					<p>coucou</p>
+				</div>
 			</div>
 		)
 	}

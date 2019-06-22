@@ -12,38 +12,6 @@ export default class Carrousel extends React.Component {
 		this.carrouselAction.bind(this);
 	}
 
-	componentWillMount() {
-		let that = this;
-		API.carrouselContent().then(data => {
-			let offers = data.data.map(function(item, i){
-				item.startDate = item.startDate.slice(0, 10)+" "+item.startDate.slice(11, 19);
-				item.endDate = item.endDate.slice(0, 10)+" "+item.endDate.slice(11, 19);
-				return(
-					<div key={i} className="CarrouselBox">
-						<div className="CarrouselBoxInfosLine">
-							<div className="CarrouselBoxAvatar"></div>
-							<div className="CarrouselBoxOfferInfos">
-								<p className="CarrouselBoxProfileName MasterFontSet">{item.title}</p>
-								<p className="CarrouselBoxOfferLocation"></p>
-								<p className="CarrouselBoxOfferPeriod">start: {item.startDate} - end: {item.endDate}</p>
-							</div>
-						</div>
-						<div className="CarrouselBoxContent">
-							<p className="CarrouselBoxOfferContent">{item.content}</p>
-						</div>
-					</div>
-				)
-			});
-			that.setState({offers});
-		});
-	}
-
-	componentDidUpdate() {
-		let boxes = document.getElementById('CarrouselShow').childNodes
-		let half = (Math.round(boxes.length/2))-1;
-		if (boxes[half]) boxes[half].classList.add('CarrouselMajorScale'); 	
-	}
-
 	waitForCarrousel = (carrousel, length) => {
 		return new Promise(resolve => {
 			setTimeout( () => {
@@ -83,6 +51,38 @@ export default class Carrousel extends React.Component {
 		if (this.state.workin) {
 			this.setState({workin:false}, () => {system(this, move)})
 			} else return;
+	}
+	
+	componentWillMount() {
+		let that = this;
+		API.carrouselContent().then(data => {
+			let offers = data.data.map(function(item, i){
+				item.startDate = item.startDate.slice(0, 10)+" "+item.startDate.slice(11, 19);
+				item.endDate = item.endDate.slice(0, 10)+" "+item.endDate.slice(11, 19);
+				return(
+					<div key={i} className="CarrouselBox">
+						<div className="CarrouselBoxInfosLine">
+							<div className="CarrouselBoxAvatar"></div>
+							<div className="CarrouselBoxOfferInfos">
+								<p className="CarrouselBoxProfileName MasterFontSet">{item.title}</p>
+								<p className="CarrouselBoxOfferLocation"></p>
+								<p className="CarrouselBoxOfferPeriod">start: {item.startDate} - end: {item.endDate}</p>
+							</div>
+						</div>
+						<div className="CarrouselBoxContent">
+							<p className="CarrouselBoxOfferContent">{item.content}</p>
+						</div>
+					</div>
+				)
+			});
+			that.setState({offers});
+		});
+	}
+
+	componentDidUpdate() {
+		let boxes = document.getElementById('CarrouselShow').childNodes
+		let half = (Math.round(boxes.length/2))-1;
+		if (boxes[half]) boxes[half].classList.add('CarrouselMajorScale'); 	
 	}
 
 	render() {
