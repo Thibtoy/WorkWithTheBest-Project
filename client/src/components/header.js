@@ -33,7 +33,6 @@ export default class Header extends Component {
 
 	componentWillMount() {
 		let header;
-		console.log(this.props);
 		let path = window.location.pathname.split('/')[1];
 		if(this.tcheckLocation())	header = [<header key="1" id="Header"><h1 className="MasterFontSet">WorkWithTheBest</h1></header>];
 		else {

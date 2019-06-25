@@ -49,3 +49,9 @@
 .FormInputContainer {
 	@include gridForm();
 }
+
+.FormRadioContainer {
+	@include flxRowCtr();
+	justify-content: space-evenly;
+	margin-bottom: 10%;
+}

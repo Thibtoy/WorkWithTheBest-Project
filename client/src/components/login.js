@@ -9,11 +9,11 @@ export default class Login extends React.Component {
 		this.state = {
 			email: '',
 			password: '',
-			token: '',
-			type: 'users',
+			type: '',
 		}
 		this.handleChange.bind(this);
 		this.handleSubmit.bind(this);
+		this.handleRadio.bind(this);
 	}
 
 	componentWillMount() {
@@ -22,24 +22,15 @@ export default class Login extends React.Component {
 
 	handleSubmit = event => {
 		event.preventDefault();
-		let that = this;
 		if (this.state.email.length === 0) return;
 		if (this.state.password.length === 0) return;
-		let promise = new Promise (function(resolve, reject){
-						let token = API.setToken({type: that.state.type});
-						resolve(token);
-					});
-		promise.then(token => {
-			this.setState({token});
 			API.login(this.state).then(function(data){
 				localStorage.setItem('token', data.data.token);
 				window.location = "/dashboard";
 			}, function(error){
 				console.log(error);
 				return;
-			});
-		})
-		
+			});		
 	}
 
 	handleChange = event => {
@@ -48,20 +39,35 @@ export default class Login extends React.Component {
 		});
 	}
 
+	handleRadio = event => {
+		this.setState({
+			[event.target.name]: event.target.value
+		});
+	}
+
 	render() {
 		return(
 			<div id="Login">
-			<form method="POST" className="Form FormLogin">
-				<div className="FormInputContainer">
-                <label htmlFor="email">Email</label>
-                <input id="email" name="email" type="email" value={this.state.email} onChange={this.handleChange}/>
-                <label htmlFor="password">Password</label>
-                <input id="password" name="password" type="password" value={this.state.password} onChange={this.handleChange}/>
-                </div>
-                <div className="FormButton" onClick={this.handleSubmit}>
-                Connexion
-                </div>
-			</form>
+				<form method="POST" className="Form FormLogin">
+					<h3 className="FormMasterFontSet">Login</h3>
+					<div className="FormInputContainer">
+						<div className="FormRadioContainer">
+							<div>
+  								<input type="radio" id="user" name="type" value="users" onChange={this.handleRadio}/>
+  								<label htmlFor="user">User</label>
+  							</div>
+  							<div>
+  								<input type="radio" id="companies" name="type" value="companies" onChange={this.handleRadio}/>
+  								<label htmlFor="companies">Company</label>
+  							</div>
+  						</div>
+                		<label htmlFor="email">Email</label>
+                		<input id="email" name="email" type="email" value={this.state.email} onChange={this.handleChange}/>
+                		<label htmlFor="password">Password</label>
+                		<input id="password" name="password" type="password" value={this.state.password} onChange={this.handleChange}/>
+                	</div>
+                	<div className="FormButton" onClick={this.handleSubmit}>Connexion</div>
+				</form>
 			</div>
 		)
 	}

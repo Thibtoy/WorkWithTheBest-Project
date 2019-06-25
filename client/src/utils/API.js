@@ -1,13 +1,10 @@
 import axios from 'axios';
-import jwt from 'jsonwebtoken';
-import config from './config/config.js';
 
 const headers = {'Content-Type': 'application/json'};
 const path = 'http://localhost:8000';
 
 export default {
 	login: function(body){
-		delete body.type;
 		return axios.post(path+'/login', body, {headers: headers});
 	},
 
@@ -19,31 +16,21 @@ export default {
 	},
 
 	isAuth: function(){
-		let token = localStorage.getItem('token');
-		if (token) {
-			return jwt.verify(token, config.SECRET, function(err){
-				if (err) return {logged: false};
-				else return jwt.verify(token, config.SECRET);
-			})
-		}
-		else return {logged: false};
-	},
-
-	setToken: function(data){
-		return jwt.sign(data, config.SECRET)
+			let token = localStorage.getItem('token');
+			return axios.post(path+'/authenticated', {token}, {headers: headers})
 	},
 
 	logOut: function(){
 		localStorage.removeItem('token');
 	},
 
-	identity: function(){
-		let token = localStorage.getItem('token');
-		return jwt.verify(token, config.SECRET, function(err, decoded){
-			if (err) return {message: 'an error occured'};
-			else return decoded;
-		})
-	},
+	// identity: function(){
+	// 	let token = localStorage.getItem('token');
+	// 	return jwt.verify(token, config.SECRET, function(err, decoded){
+	// 		if (err) return {message: 'an error occured'};
+	// 		else return decoded;
+	// 	})
+	// },
 
 	carrouselContent: function(body){
 		return axios.get(path+'/carrousel', body, {headers});

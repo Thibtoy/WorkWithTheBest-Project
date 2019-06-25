@@ -1,11 +1,12 @@
 @import './config.scss';
 
 #Login {
-	height: 95vh;
+	margin-top: -5%;
+	height: 100vh;
 	@include flxRowCtr();
 }
 
 .FormLogin {
 	width: 18vw;
-	height: 25vh;
+	height: 40vh;
 }

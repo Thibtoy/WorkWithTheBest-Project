@@ -1,6 +1,7 @@
 @import './config.scss';
 
 #Register {
+	margin-top: -5%;
 	height: 100vh;
 	@include flxRowCtr();
 }

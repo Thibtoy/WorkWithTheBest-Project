@@ -265,8 +265,14 @@ exports.dataCompaniesOffers = function(req, res) {
 		 'de charcutterie corse', startDate: 86400000, endDate: (2592000000+86400000), companyId: 3},
 		 location: 24776},
 		{content: {title: 'Animateur(trice) en aqua gymnastique', content: 'recherchons animateur(trice) '+
-		 'pour un poste dans notre superbe spa, le Mamy\'s SPA', startDate: 2592000000, endDate: 2592000000*2, companyId: 4},
-		 location: 25384}
+		 "pour un poste dans notre superbe spa, le Mamy's SPA", startDate: 2592000000, endDate: 2592000000*2, companyId: 4},
+		 location: 25384},
+		 {content: {title: 'Lorem Ipsum', content: 'recherchons Ipsum Lorem '+
+		 "pour IpsumLoremopsum", startDate: 2592000000, endDate: 2592000000*2, companyId: 6},
+		 location: 23384},
+		 {content: {title: 'IpsumLoremi', content: 'recherchons Loriem Ipsaume '+
+		 'pour un Lorem Ipsom dans notre ipsumLoRemo', startDate: 2592000000, endDate: 2592000000*2, companyId: 8},
+		 location: 15384}
 	];
 
 	offers.forEach(function(offer){

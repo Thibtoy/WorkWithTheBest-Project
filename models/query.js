@@ -25,26 +25,38 @@ function mysqlEscape(str) {
     });
 }
 
-exports.find = function(options, results) {
-	let query = 'SELECT '+options.fields+' FROM '+options.table;
-	if (options.where) {
-		let where = ' WHERE ';
+function innerJoin(innerJ) {
+	let query = '';
+	for (let prop in innerJ) {
+		query += ' INNER JOIN '+innerJ[prop].table+' ON '+innerJ[prop].on;
+	}
+	return query;
+}
+
+function where(where) {
+	let query = ' WHERE ';
 		let count = 0;
-		for (let prop in options.where){
+		for (let prop in where){
 			if (prop === 'andlike') {
-				for (let underprop in options.where[prop]){
-					options.where[prop][underprop].forEach(function(item, i){
-						where += (i === 0)? underprop+" LIKE '%"+mysqlEscape(item.toString())+"%'" : ' AND '+underprop+" LIKE %'"+mysqlEscape(item.toString())+"'";
+				for (let underprop in where[prop]){
+					where[prop][underprop].forEach(function(item, i){
+						query += (i === 0)? underprop+" LIKE '%"+mysqlEscape(item.toString())+"%'" : ' AND '+underprop+" LIKE %'"+mysqlEscape(item.toString())+"'";
 					})
 				}
 			}
 			else {
-				where += (count === 0)? prop+" = '"+mysqlEscape(options.where[prop].toString())+"'" : ' OR '+prop+" = '"+mysqlEscape(options.where[prop].toString())+"'";
+				query += (count === 0)? prop+" = '"+mysqlEscape(where[prop].toString())+"'" : ' OR '+prop+" = '"+mysqlEscape(where[prop].toString())+"'";
 				count++
 			}
 		}
-		query += where;
-	}
+		console.log(query);
+		return query;
+}
+
+exports.find = function(options, results) {
+	let query = 'SELECT '+options.fields+' FROM '+options.table;
+	if (options.innerJoin) query += innerJoin(options.innerJoin);
+	if (options.where) query += where(options.where);
 	console.log(query);
 	return db.query(query, function(err, data){
 		if (err) return results(err, null);
@@ -52,14 +64,13 @@ exports.find = function(options, results) {
 		else if(data.length === 1) return results(null, data[0]);
 		else {
 			let total = [];
-			for (let i = 0; i < data.length; i++) {
-					let result = {};
-					let fields = options.fields.split(', ');
-					fields.forEach(function(item){
-						result[item] = data[i][item];
-					});
-					total.push(result);				
-		 	}
+			data.forEach(function(item){
+				let result = {};
+				for (let prop in item){
+					result[prop] = item[prop];
+				}
+				total.push(result);
+			});
 		 	return results(null, total);
 		}
 	});
