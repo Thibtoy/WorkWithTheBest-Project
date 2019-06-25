@@ -1,13 +1,21 @@
 const query = require('../models/query');
 exports.carrousel = function(req, res) {
 	let params = {
-		fields: 'id, title, content, startDate, endDate, DATE_FORMAT(startDate, "%Y %m %d"), DATE_FORMAT(endDate, "%Y %m %d/%H:%i")', 
+		fields: 'title, content, companies.name AS companyName, locations.name AS location, startDate, endDate', 
 		table: 'companiesOffers', 
+		innerJoin: {
+			first:{table: 'companies', on: 'companies.id = companiesOffers.companyId'},
+			second:{table: 'companiesOffersToLocation AS COTL', on: 'companiesOffers.id = COTL.offerId'},
+			third:{table: 'locations', on: 'COTL.locationId = locations.id'}
+		},
 		where:{active: 1}
 	};
 	
 	query.find(params, function(err, data){
-		if(err) res.status(200).json(err);
+		if(err) {
+			console.log(err);
+			res.status(200).json(err);
+		}
 		else {
 			console.log(data);
 			res.status(200).json(data);

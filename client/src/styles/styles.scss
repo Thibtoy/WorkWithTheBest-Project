@@ -14,6 +14,7 @@ body {
   height: 100vh;
   background-size: cover;
   background-repeat: no-repeat;
+  overflow-X: hidden;
 }
 
 .MasterFontSet {
@@ -22,6 +23,10 @@ body {
 
 .SecondFontSet {
   color: $color2;
+}
+
+.ThirdFontSet {
+  color: $color1;
 }
 
 @keyframes App-logo-spin {

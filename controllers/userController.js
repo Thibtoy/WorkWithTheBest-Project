@@ -8,19 +8,18 @@ const nodeMailer = require('nodemailer');
 
 
 exports.signUp = function(req, res) {
-		jwt.verify(req.body.token, config.SECRET, function(err, decoded){
-			if (err) res.status(400).json(err);
 			req.body.password = pH.generate(req.body.password);
-			let params = {fields: 'id', table: decoded.type, where:{email: req.body.email}};
+			let type = req.body.type;
+			delete req.body.type;
+			let params = {fields: 'id', table: type, where:{email: req.body.email}};
 			query.find(params, function(err, user){
 				if (err) res.status(400).json(err);
 				else if(!user) {
-					delete req.body.token;
-					let params = {table: decoded.type, fields: req.body};
+					let params = {table: type, fields: req.body};
  					query.create(params, function(err, data){
  						if (err) res.status(400).json(err);
  						else {
- 							let token = jwt.sign({id: data.insertId, table: decoded.type}, config.SECRET);
+ 							let token = jwt.sign({id: data.insertId, table: type}, config.SECRET);
  							sendValidationMail(req.body.email, token);
  							res.status(201).json({created: true, message:data});
  						}
@@ -29,26 +28,22 @@ exports.signUp = function(req, res) {
  				else res.status(200).json({created: false, message: "This Account already exists"});
 			});
 			
-		})
+		
 
 }
 
 exports.login = function(req, res) {
-	jwt.verify(req.body.token, config.SECRET, function(err, decoded){
-	if (err) res.status(400).json(err);	
-	else {
-		let params = {fields: 'id, email, password, activated', table: decoded.type, where:{email: req.body.email}};
+		let params = {fields: '*', table: req.body.type, where:{email: req.body.email}};
 		query.find(params, function(err, user){
 			if (err) res.status(400).json(err);
 			else if (!user || user.activated === 0) res.status(200).json({message: 'This user does not exists'});
 			else if (pH.verify(req.body.password, user.password)) {
-				let token = jwt.sign({logged: true, id: user.id}, config.SECRET);
+				let name = (user.firstName)?user.firstName+' '+user.lastName: user.name;
+				let token = jwt.sign({logged: true, id:user.id, name: name, role: req.body.type}, config.SECRET);
 				res.status(200).json({authenticate: true, token: token, message: 'Successfully connected'});
 			}
 			else res.status(200).json({authenticate: false, message: 'Incorrect password'});
 		});
-	}
-	});
 }
 
 exports.activateAccount = function(req, res) {
@@ -67,6 +62,15 @@ exports.activateAccount = function(req, res) {
 		}
 	})
 
+}
+
+exports.authenticated = function(req, res) {
+	jwt.verify(req.body.token, config.SECRET, function(err, decoded){
+		if (err) res.status(400).json(err);
+		else {
+			res.status(200).json({auth: true, user: decoded});
+		};
+	});
 }
 
 function sendValidationMail(mail, token) {

@@ -62,11 +62,14 @@ export default class Carrousel extends React.Component {
 				return(
 					<div key={i} className="CarrouselBox">
 						<div className="CarrouselBoxInfosLine">
-							<div className="CarrouselBoxAvatar"></div>
+							<p className="CarrouselBoxTitle ThirdFontSet">{item.title}</p>
 							<div className="CarrouselBoxOfferInfos">
-								<p className="CarrouselBoxProfileName MasterFontSet">{item.title}</p>
-								<p className="CarrouselBoxOfferLocation"></p>
-								<p className="CarrouselBoxOfferPeriod">start: {item.startDate} - end: {item.endDate}</p>
+								<img className="CarrouselBoxAvatar" src={process.env.PUBLIC_URL+'/images/building.svg'} alt="Avatar"></img>
+								<div className="CarrouselProfileInfos">
+									<p className="CarrouselBoxProfileName MasterFontSet">{item.companyName}</p>
+									<p className="CarrouselBoxOfferLocation">{item.location}</p>
+									<p className="CarrouselBoxOfferPeriod">start: {item.startDate} - end: {item.endDate}</p>
+								</div>
 							</div>
 						</div>
 						<div className="CarrouselBoxContent">

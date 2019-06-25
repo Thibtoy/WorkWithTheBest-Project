@@ -11,9 +11,9 @@ export default class RegisterCompany extends Component {
 			email: false,
 			password: false,
 			password2: false,
-			token: '',
 			errorMessage: '',
-			filled: true
+			filled: true,
+			type: 'companies',
 		}
 		this.handleSubmit.bind(this);
 		this.handleChange.bind(this); 
@@ -35,19 +35,12 @@ export default class RegisterCompany extends Component {
 		promise.then(() => {
 			if (this.state.filled) {
 				if (this.state.password === this.state.password2) {
-					let promise = new Promise (function(resolve, reject){
-						let token = API.setToken({type: 'companies'});
-						resolve(token);
-					});
-					promise.then(token => {
-						this.setState({token: token});
-						API.signUp(this.state).then(function(response){
-							if (response.data.created) {
-								window.location = "/login";	
-							}
-							else return that.setState({errorMessage: response.data.message})
-						});
-					});
+					API.signUp(this.state).then(function(response){
+						if (response.data.created) {
+							window.location = "/login";	
+						}
+						else return that.setState({errorMessage: response.data.message})
+					});					
 				}
 				else return this.setState({errorMessage: 'Passwords doesn\'t match'});
 			}
