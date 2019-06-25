@@ -21,7 +21,6 @@ export default class PrivateRoute extends React.Component{
 	
 	render() {
 		const {logged, loaded, user} = this.state;
-		console.log(user);
 		if (loaded) {
 			if(logged) return <Route path={this.props.path} component={this.props.component} user={user} />
 			else return window.location = '/login';
