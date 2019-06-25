@@ -55,10 +55,12 @@ export default class Carrousel extends React.Component {
 	
 	componentWillMount() {
 		let that = this;
-		API.carrouselContent().then(data => {
+		let type = (this.props.user.role === "users")? "companies":"users";
+		API.carrouselContent({type}).then(data => {
 			let offers = data.data.map(function(item, i){
 				item.startDate = item.startDate.slice(0, 10)+" "+item.startDate.slice(11, 19);
 				item.endDate = item.endDate.slice(0, 10)+" "+item.endDate.slice(11, 19);
+				let name = (item.companyName)? item.companyName: item.firstName+' '+item.lastName;
 				return(
 					<div key={i} className="CarrouselBox">
 						<div className="CarrouselBoxInfosLine">
@@ -66,7 +68,7 @@ export default class Carrousel extends React.Component {
 							<div className="CarrouselBoxOfferInfos">
 								<img className="CarrouselBoxAvatar" src={process.env.PUBLIC_URL+'/images/building.svg'} alt="Avatar"></img>
 								<div className="CarrouselProfileInfos">
-									<p className="CarrouselBoxProfileName MasterFontSet">{item.companyName}</p>
+									<p className="CarrouselBoxProfileName MasterFontSet">{name}</p>
 									<p className="CarrouselBoxOfferLocation">{item.location}</p>
 									<p className="CarrouselBoxOfferPeriod">start: {item.startDate} - end: {item.endDate}</p>
 								</div>
@@ -89,6 +91,7 @@ export default class Carrousel extends React.Component {
 	}
 
 	render() {
+		console.log(this.props);
 		return(
 			<div className="Carrousel">
 				<h4 className="SecondFontSet">Lasts Offers</h4>

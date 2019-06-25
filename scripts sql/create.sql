@@ -112,12 +112,12 @@ CREATE TABLE WorkWithTheBest.usersOffers (
 	content TEXT NOT NULL,
 	startDate DATETIME,
 	endDate DATETIME,
-	userId INT NOT NULL,
+	ownerId INT NOT NULL,
 	active BOOLEAN DEFAULT true
 	) ENGINE = InnoDB;
 
 ALTER TABLE WorkWithTheBest.usersOffers
-ADD CONSTRAINT FOREIGN KEY (userId)
+ADD CONSTRAINT FOREIGN KEY (ownerId)
 REFERENCES WorkWithTheBest.users(id);
 
 CREATE TABLE WorkWithTheBest.usersOffersToLocation(
@@ -138,12 +138,12 @@ CREATE TABLE WorkWithTheBest.companiesOffers (
 	content TEXT NOT NULL,
 	startDate DATETIME,
 	endDate DATETIME,
-	companyId INT NOT NULL,
+	ownerId INT NOT NULL,
 	active BOOLEAN DEFAULT true
 	) ENGINE = InnoDB;
 
 ALTER TABLE WorkWithTheBest.companiesOffers
-ADD CONSTRAINT FOREIGN KEY (companyId)
+ADD CONSTRAINT FOREIGN KEY (ownerId)
 REFERENCES WorkWithTheBest.companies(id);
 
 CREATE TABLE WorkWithTheBest.companiesOffersToLocation(
