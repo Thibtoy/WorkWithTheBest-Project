@@ -33,6 +33,6 @@ export default {
 	// },
 
 	carrouselContent: function(body){
-		return axios.get(path+'/carrousel', body, {headers});
+		return axios.post(path+'/carrousel', body, {headers});
 	}
 }

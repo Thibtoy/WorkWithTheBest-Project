@@ -13,7 +13,7 @@ export default class Dashboard extends React.Component {
 	render() {
 		return(
 			<div id="Dashboard">
-				<Carrousel />
+				<Carrousel user={this.props.user} />
 				<div id="DashboardOffersBoard">
 					<img className="DashboardFilterIcon" src={process.env.PUBLIC_URL+'/images/filter.svg'} alt="FilterImage"></img>
 				</div>
