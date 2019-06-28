@@ -21,7 +21,7 @@ export default class Header extends Component {
 		}
 		else {
 			event.target.classList.remove('HeaderButtonActive');
-			menu.style.marginTop = '-3vh';
+			menu.style.marginTop = '-3%';
 			this.setState({menu:false});
 		}
 	}

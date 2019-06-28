@@ -1,0 +1,43 @@
+@import './config.scss';
+
+.OfferBox{
+	width: 40%;
+	height: 17vw;
+	margin-bottom: 5%;
+	@include flxColCtr();
+	background-color: $color4;
+	justify-content: space-evenly;
+	flex: 0 0 40%;
+}
+
+.OfferBoxInfos{
+	width: 100%;
+	@include flxRowCtr();
+	justify-content: space-evenly;
+}
+
+.OfferBoxInfosAvatar{
+	height:5vw;
+}
+
+.OfferBoxInfosContent{
+	width: 65%;
+	height: 100%;
+	@include flxColCtr();
+	align-items: flex-start;
+	justify-content: space-between;
+}
+
+.OfferBoxInfosOptions{
+	
+}
+
+.OfferBoxMain{
+	width: 96%;
+	height: 48%;
+	background-color: white;
+}
+
+.OfferBoxMainContent{
+	
+}

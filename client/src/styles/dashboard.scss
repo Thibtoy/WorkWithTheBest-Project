@@ -1,5 +1,9 @@
+@import './config.scss';
+
 body {
 	background: linear-gradient(#CCCCCC, white);
+	height: auto;
+	margin-top: 2.5%;
 }
 
 #DashboardOffersBoard {
@@ -7,12 +11,21 @@ body {
 	margin: auto;
 	margin-top: 3vh;
 	background-color: white;
-	min-height: 80vh;
 }
 
 .DashboardFilterIcon {
-	width: 3%;
+	width: 5%;
 	position: relative;
-	left: 48%;
+	left: 47%;
 	top: 5px;
+}
+
+.DashboardOffersShow {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-evenly;
+/*    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-row-gap: 6%;*/
+    width: 100%;
 }

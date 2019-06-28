@@ -8,6 +8,7 @@ import HomePage from './components/homePage.js';
 import PrivateRoute from './components/privateRoute.js';
 import RegisterUser from './components/registerUser.js';
 import RegisterCompany from './components/registerCompany.js';
+import NewOffer from './components/newOffer.js';
 
 import './styles/styles.scss';
 
@@ -24,7 +25,8 @@ export default class App extends Component {
             <Route path="/login" component={Login} />
             <Route path={'/register/registerUser'} component={RegisterUser} />
             <Route path="/register/registerCompany" component={RegisterCompany} />
-            <PrivateRoute path='/dashboard' component={Dashboard}   />
+            <PrivateRoute path='/dashboard' component={Dashboard} />
+            <PrivateRoute path='/newOffer' component={NewOffer} />
           </Switch>
         </div>
       </div>

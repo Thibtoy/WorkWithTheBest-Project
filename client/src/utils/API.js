@@ -24,15 +24,15 @@ export default {
 		localStorage.removeItem('token');
 	},
 
-	// identity: function(){
-	// 	let token = localStorage.getItem('token');
-	// 	return jwt.verify(token, config.SECRET, function(err, decoded){
-	// 		if (err) return {message: 'an error occured'};
-	// 		else return decoded;
-	// 	})
-	// },
-
 	carrouselContent: function(body){
 		return axios.post(path+'/carrousel', body, {headers});
+	},
+
+	wordResearch: function(body) {
+		return axios.post(path+'/wordResearch', body, {headers});
+	},
+
+	addOffer: function(body) {
+		return axios.put(path+'/addOffer', body, {headers});
 	}
 }

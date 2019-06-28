@@ -36,20 +36,19 @@ function innerJoin(innerJ) {
 function where(where) {
 	let query = ' WHERE ';
 		let count = 0;
-		for (let prop in where){
-			if (prop === 'andlike') {
-				for (let underprop in where[prop]){
-					where[prop][underprop].forEach(function(item, i){
-						query += (i === 0)? underprop+" LIKE '%"+mysqlEscape(item.toString())+"%'" : ' AND '+underprop+" LIKE %'"+mysqlEscape(item.toString())+"'";
+		for (let param in where){
+			if (param === 'like') {
+				for (let field in where[param]){
+					where[param][field].forEach(function(item, i){
+						query += (i === 0)? field+" LIKE '"+mysqlEscape(item.toString())+"%'" : " '%"+mysqlEscape(item.toString())+"%'";
 					})
 				}
 			}
 			else {
-				query += (count === 0)? prop+" = '"+mysqlEscape(where[prop].toString())+"'" : ' OR '+prop+" = '"+mysqlEscape(where[prop].toString())+"'";
+				query += (count === 0)? param+" = '"+mysqlEscape(where[param].toString())+"'" : ' OR '+param+" = '"+mysqlEscape(where[param].toString())+"'";
 				count++
 			}
 		}
-		console.log(query);
 		return query;
 }
 
@@ -57,6 +56,8 @@ exports.find = function(options, results) {
 	let query = 'SELECT '+options.fields+' FROM '+options.table;
 	if (options.innerJoin) query += innerJoin(options.innerJoin);
 	if (options.where) query += where(options.where);
+	if (options.orderBy) query += ' ORDER BY '+options.orderBy.field+' '+options.orderBy.order;
+	if (options.limit) query += ' LIMIT '+options.limit;
 	console.log(query);
 	return db.query(query, function(err, data){
 		if (err) return results(err, null);
@@ -96,7 +97,7 @@ exports.test = function(options) {
 			params[field] = mysqlEscape(options.fields[field].toString());
 		}
 		let query = 'INSERT INTO '+options.table+' SET ? ';
-		//console.log(query);
+		console.log(query);
 		return db.query(query, params, function(err, data){
 			if (err) return reject(err);
 			else return resolve(data.insertId);

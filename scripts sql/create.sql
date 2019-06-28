@@ -132,6 +132,18 @@ REFERENCES WorkWithTheBest.usersOffers(id),
 ADD CONSTRAINT FOREIGN KEY (locationId)
 REFERENCES WorkWithTheBest.locations(id);
 
+CREATE TABLE WorkWithTheBest.usersOffersToActivity(
+	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	offerId INT NOT NULL,
+	activityId INT NOT NULL
+	) ENGINE = InnoDB;
+
+ALTER TABLE WorkWithTheBest.usersOffersToActivity
+ADD CONSTRAINT FOREIGN KEY (offerId)
+REFERENCES WorkWithTheBest.usersOffers(id),
+ADD CONSTRAINT FOREIGN KEY (activityId)
+REFERENCES WorkWithTheBest.activity(id);
+
 CREATE TABLE WorkWithTheBest.companiesOffers (
 	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 	title VARCHAR(100),
@@ -157,6 +169,19 @@ ADD CONSTRAINT FOREIGN KEY (offerId)
 REFERENCES WorkWithTheBest.companiesOffers(id),
 ADD CONSTRAINT FOREIGN KEY (locationId)
 REFERENCES WorkWithTheBest.locations(id);
+
+CREATE TABLE WorkWithTheBest.companiesOffersToActivity(
+	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
+	offerId INT NOT NULL,
+	activityId INT NOT NULL
+	) ENGINE = InnoDB;
+
+ALTER TABLE WorkWithTheBest.companiesOffersToActivity
+ADD CONSTRAINT FOREIGN KEY (offerId)
+REFERENCES WorkWithTheBest.companiesOffers(id),
+ADD CONSTRAINT FOREIGN KEY (activityId)
+REFERENCES WorkWithTheBest.activity(id);
+
 
 CREATE TABLE WorkWithTheBest.contract (
 	id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
