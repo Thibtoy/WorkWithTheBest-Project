@@ -38,6 +38,7 @@
 	width: $buttonSize;
 	padding: 5px 0 5px 0;
 	border-radius: 5px;
+	text-align: center;
 	&:hover {
 		cursor: pointer;
 	}
@@ -46,12 +47,60 @@
 	}
 }
 
+.FormRowContainer {
+	@include flxRowCtr();
+	width: 97%;
+	height: 70%;
+	justify-content: space-between;
+	align-items: flex-start;
+		.FormInputContainer {
+			width: 45%;
+		}
+}
+
 .FormInputContainer {
-	@include gridForm();
+	width: 80%;
+	height: 100%;
+	@include flxColCtr();
+	align-items: flex-start;
+	justify-content: space-evenly;
+}
+
+.FormGroupLabel {
+	width: 100%;
+	@include flxColCtr();
+	align-items: flex-start;
+}
+
+.FormInput {
+	box-sizing: border-box;
+	width: 80%;
+	text-align: center;
+}
+
+.FormTextArea {
+	width: 100%;
 }
 
 .FormRadioContainer {
+	width: 100%;
 	@include flxRowCtr();
 	justify-content: space-evenly;
 	margin-bottom: 10%;
+}
+
+
+
+.FormSearchBox {
+	width: 100%;
+}
+
+.FormListSelection {
+	height: 5vh;
+	overflow-y: hidden;
+}
+
+.FormDropDownList {
+	width: 80%;
+  	background-color: rgba(207, 224, 252, 0.7);
 }
