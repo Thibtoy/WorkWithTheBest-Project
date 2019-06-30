@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
+import {Link} from 'react-router-dom';
 import API from '../utils/API.js'
 import '../styles/header.scss';
+
 
 export default class Header extends Component {
 	constructor() {
@@ -21,7 +23,7 @@ export default class Header extends Component {
 		}
 		else {
 			event.target.classList.remove('HeaderButtonActive');
-			menu.style.marginTop = '-3%';
+			menu.style.marginTop = '-2.8vh';
 			this.setState({menu:false});
 		}
 	}
@@ -33,22 +35,20 @@ export default class Header extends Component {
 
 	componentWillMount() {
 		let header;
-		let path = window.location.pathname.split('/')[1];
 		if(this.tcheckLocation())	header = [<header key="1" id="Header"><h1 className="MasterFontSet">WorkWithTheBest</h1></header>];
 		else {
 			
 			header = [
 				<header key="1" id="Header">
 					<ul className="headerTop">
-						<li id="hamburgerMenu" className="headerLi" onClick={this.menuClick}><img className="HeaderButton" src={process.env.PUBLIC_URL+'/images/hamburger.svg'} alt="ButtonImage"></img></li>
-						<li className="headerLi"><h1 className="MasterFontSet">WorkWithTheBest</h1></li>
-						<li id="onOffButton" className="headerLi" onClick={this.disconnect}><img className="HeaderButton" src={process.env.PUBLIC_URL+'/images/standby.svg'} alt="ButtonImage"></img></li>
+						<li id="hamburgerMenu" className="headerTopLi" onClick={this.menuClick}><img className="HeaderButton" src={process.env.PUBLIC_URL+'/images/hamburger.svg'} alt="ButtonImage"></img></li>
+						<li className="headerTopLi"><h1 className="MasterFontSet">WorkWithTheBest</h1></li>
+						<li id="onOffButton" className="headerTopLi" onClick={this.disconnect}><img className="HeaderButton" src={process.env.PUBLIC_URL+'/images/standby.svg'} alt="ButtonImage"></img></li>
 					</ul>
 					<nav id="NavBar">
 						<ul>
-							<li className="headerLi">M</li>
-							<li className="headerLi"><h3 className="MasterFontSet">{path}</h3></li>
-							<li className="headerLi">O</li>
+							<li className="headerLi"><Link to ="/dashboard">Dashboard</Link></li>
+							<li className="headerLi"><Link to="/newOffer">New Offer</Link></li>
 						</ul>
 					</nav>
 				</header>

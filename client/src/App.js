@@ -27,6 +27,7 @@ export default class App extends Component {
             <Route path="/register/registerCompany" component={RegisterCompany} />
             <PrivateRoute path='/dashboard' component={Dashboard} />
             <PrivateRoute path='/newOffer' component={NewOffer} />
+            <PrivateRoute path='/offers/:id' component={NewOffer}/>
           </Switch>
         </div>
       </div>

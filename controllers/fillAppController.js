@@ -2,7 +2,8 @@ const query = require('../models/query');
 exports.carrousel = function(req, res) {
 	let name = (req.body.type === 'users')? req.body.type+'.firstName, '+req.body.type+'.lastName':req.body.type+'.name';
 	let params = {
-		fields: 'title, content,'+name+', locations.name AS location, startDate, endDate', 
+		distinct: true,
+		fields: req.body.type+'Offers.ownerId, '+req.body.type+'Offers.id, title, content, '+name+', locations.name AS location, startDate, endDate', 
 		table: req.body.type+'Offers', 
 		innerJoin: {
 			first:{table: req.body.type, on: req.body.type+'.id = '+req.body.type+'Offers.ownerId'},
@@ -64,13 +65,12 @@ exports.addOffer= function(req, res) {
 	query.test(params)
 		 .then(data => {
 		 	let promises = [];
-		 	req.body.locationsList.forEach(function(item){
-		 		if (item){
+		 	for (let prop in req.body.locationsList) {
 		 			let params = {
 		 				table: req.body.role+'OffersToLocation',
 		 				fields: {
 		 					offerId: data,
-		 					locationId: item,
+		 					locationId: prop,
 		 				}
 		 			}
 		 			let promise = new Promise(function(resolve, reject){
@@ -79,15 +79,13 @@ exports.addOffer= function(req, res) {
 		 					 .catch(err => {reject(err)})
 		 			})
 		 			promises.push(promise);
-		 		}
-		 	})
-		 	req.body.activityList.forEach(function(item){
-		 		if (item) {
+		 	}
+		 	for (let prop in req.body.activityList) {
 		 			let params = {
 		 				table: req.body.role+'OffersToActivity',
 		 				fields: {
 		 					offerId: data,
-		 					activityId: item,
+		 					activityId: prop,
 		 				}
 		 			}
 		 			let promise = new Promise(function(resolve, reject){
@@ -96,8 +94,7 @@ exports.addOffer= function(req, res) {
 		 					 .catch(err => {reject(err)})
 		 			})
 		 			promises.push(promise);
-		 		}
-		 	})
+		 	}
 		 	Promise.all(promises)
 		 		.then(data => {
 		 			console.log(data);

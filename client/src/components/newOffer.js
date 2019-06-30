@@ -19,6 +19,7 @@ export default class NewOffer extends React.Component {
 			activity: [],
 			selectedActivity: [],
 			activityList: [],
+			handleSubmit: this.handleSubmit,
 		}
 	}
 
@@ -68,23 +69,35 @@ export default class NewOffer extends React.Component {
 		handleSubmit = event => {
 			delete this.state.locations;
 			delete this.state.activity;
-			let selectedLocations = this.state.selectedLocations.map(function(item){
-			if (item.key) return item.key;
-			else return null;
+			let selectedLocations = {};
+			this.state.selectedLocations.forEach(function(item){
+			if (item.key) selectedLocations[item.key] = {id: item.key};
+			else return;
 			})
-			let selectedActivity = this.state.selectedActivity.map(function(item){
-			if (item.key) return item.key;
-			else return null;
+			let selectedActivity = {};
+			this.state.selectedActivity.forEach(function(item){
+			if (item.key) selectedActivity[item.key] = {id: item.key};
+			else return; 
 			})
 			this.setState({locationsList: selectedLocations, activityList: selectedActivity}, () => {
 				delete this.state.selectedLocations;
 				delete this.state.selectedActivity;
+				console.log(this.state);
 				API.addOffer(this.state).then(data => {console.log(data)});
 			})
 		}
 
+		handleSubmit2 = event => {
+			console.log('coucou');
+		}
+		componentWillMount() {
+			if (this.props.match.params.id) {
+				this.setState({handleSubmit: this.handleSubmit2});
+			}
+		}
+
 		componentDidMount() {
-			this.setState({ownerId: this.props.user.id, role: this.props.user.role});
+			this.setState({ownerId: this.props.user.id, role: this.props.user.role})
 		}
 
 		render() {
@@ -130,7 +143,7 @@ export default class NewOffer extends React.Component {
                 			</div>
                 		</div>
                 	</div>
-                	<div className="FormButton" onClick={this.handleSubmit}>Add Offer</div>
+                	<div className="FormButton" onClick={this.state.handleSubmit}>Add Offer</div>
 				</form>
 			</div>
 		)

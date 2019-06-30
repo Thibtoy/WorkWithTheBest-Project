@@ -53,7 +53,9 @@ function where(where) {
 }
 
 exports.find = function(options, results) {
-	let query = 'SELECT '+options.fields+' FROM '+options.table;
+	let query = 'SELECT '
+	if (options.distinct) query += 'DISTINCT ';
+	query += options.fields+' FROM '+options.table;
 	if (options.innerJoin) query += innerJoin(options.innerJoin);
 	if (options.where) query += where(options.where);
 	if (options.orderBy) query += ' ORDER BY '+options.orderBy.field+' '+options.orderBy.order;
