@@ -22,12 +22,12 @@ export default class App extends Component {
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route exact path="/register" component={Register}/>
-            <Route path="/login" component={Login} />
-            <Route path={'/register/registerUser'} component={RegisterUser} />
-            <Route path="/register/registerCompany" component={RegisterCompany} />
-            <PrivateRoute path='/dashboard' component={Dashboard} />
-            <PrivateRoute path='/newOffer' component={NewOffer} />
-            <PrivateRoute path='/offers/:id' component={NewOffer}/>
+            <Route exact path="/login" component={Login} />
+            <Route exact path={'/register/registerUser'} component={RegisterUser} />
+            <Route exact path="/register/registerCompany" component={RegisterCompany} />
+            <PrivateRoute exact path='/dashboard' component={Dashboard} />
+            <PrivateRoute exact path='/newOffer' component={NewOffer} />
+            <PrivateRoute exact path='/offers/:id' component={NewOffer}/>
           </Switch>
         </div>
       </div>

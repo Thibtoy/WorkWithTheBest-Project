@@ -106,3 +106,77 @@ exports.addOffer= function(req, res) {
 		 		})
 		 })
 }
+
+exports.getOffer = function(req, res) {
+	let offer = req.body;	
+
+	let promise1 = new Promise(function(resolve, reject){
+		let params = {
+			table: offer.type+'Offers',
+			fields: 'title, content, startDate, endDate, ownerId, active',
+			where: {[offer.type+'Offers.id']: offer.id},
+		}
+
+		query.find(params, function(err, data){
+			if (err) reject(err);
+			else resolve(data);
+		});
+	});			
+
+	let promise2 = new Promise(function(resolve, reject){
+		let params = {
+			table: offer.type+'OffersToLocation AS link',
+			fields: 'link.id AS linkId, locations.name, locations.code, locations.id AS locationId',
+			innerJoin: {
+				first: {table: 'locations', on: 'link.locationId = locations.id'},
+			},
+			where: {['link.offerId']: offer.id},
+		}
+		query.find(params, function(err, data){
+			if (err) reject(err);
+			else resolve(data);
+		});
+	});
+
+	let promise3 = new Promise(function(resolve, reject){
+		let params = {
+			table: offer.type+'OffersToActivity AS link',
+			fields: 'link.id AS linkId, activity.name, activity.id AS activityId',
+			innerJoin: {
+				first: {table: 'activity', on: 'link.activityId = activity.id'},
+			},
+			where: {['link.offerId']: offer.id},
+		}
+		query.find(params, function(err, data){
+			if (err) reject(err);
+			else resolve(data);
+		});
+	});
+
+	Promise.all([promise1, promise2, promise3])
+				 .then(data => res.status(200).json(data))
+				 .catch(err => {
+				 	console.log(err);
+				 	res.status(400).json(err)
+				 });
+}
+
+exports.updateOffer = function(req, res) {
+	let params = {
+		table: req.body.role+'Offers', 
+		fields: {
+			title: req.body.title,
+			content: req.body.content,
+			startDate: req.body.startDate,
+			endDate: req.body.endDate,
+		},
+		where: {id: req.body.id},
+	}
+
+	query.update(params)
+		 .then(data => res.status(200).json(data))
+		 .catch(err => {
+		 	console.log(err);
+		 	res.status(400).json(err)
+		 });
+}

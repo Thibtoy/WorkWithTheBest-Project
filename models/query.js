@@ -126,6 +126,7 @@ exports.update = function(options) {
 			count++
 		}
 		query += where; 
+		console.log(query, values);
 		return db.query(query, values, function(error, result){
 			if (error) reject(error);
 			resolve('success');			

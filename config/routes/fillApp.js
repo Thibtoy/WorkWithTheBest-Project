@@ -8,5 +8,11 @@ module.exports = function(app) {
 	   .post(fillAppController.wordResearch);
 
 	app.route('/addOffer')
-	   .put(fillAppController.addOffer);
+	   .post(fillAppController.addOffer);
+
+	app.route('/getOffer')
+	   .post(fillAppController.getOffer);
+
+	app.route('/updateOffer')
+	   .put(fillAppController.updateOffer);
 }

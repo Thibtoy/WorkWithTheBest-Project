@@ -33,6 +33,10 @@ export default class Header extends Component {
 		window.location = "/login";
 	}
 
+	refresh = event => {
+		document.location.reload();
+	}
+
 	componentWillMount() {
 		let header;
 		if(this.tcheckLocation())	header = [<header key="1" id="Header"><h1 className="MasterFontSet">WorkWithTheBest</h1></header>];
@@ -47,8 +51,8 @@ export default class Header extends Component {
 					</ul>
 					<nav id="NavBar">
 						<ul>
-							<li className="headerLi"><Link to ="/dashboard">Dashboard</Link></li>
-							<li className="headerLi"><Link to="/newOffer">New Offer</Link></li>
+							<li className="headerLi" onClick={this.refresh}><Link to ="/dashboard">Dashboard</Link></li>
+							<li className="headerLi" onClick={this.refresh}><Link to="/newOffer">New Offer</Link></li>
 						</ul>
 					</nav>
 				</header>
