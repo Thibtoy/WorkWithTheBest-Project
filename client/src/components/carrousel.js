@@ -35,7 +35,7 @@ export default class Carrousel extends React.Component {
 			let carrousel = document.getElementById('CarrouselShow');
 			let length = carrousel.childNodes.length;
 			let half = (Math.round(length/2))-1;
-			if (move === 'Left') {
+			if (move !== 'Left') {
 					carrousel.childNodes[0].classList.add('CarrouselLeftMove');
 					carrousel.childNodes[half].classList.remove('CarrouselMajorScale');
 					carrousel.childNodes[half+1].classList.add('CarrouselMajorScale');

@@ -33,6 +33,16 @@ export default {
 	},
 
 	addOffer: function(body) {
-		return axios.put(path+'/addOffer', body, {headers});
+		return axios.post(path+'/addOffer', body, {headers});
+	},
+
+	getOffer: function(body) {
+		return axios.post(path+'/getOffer', body, {headers});
+	},
+
+	updateOffer: function(body) {
+		return axios.put(path+'/updateOffer', body, {headers});
 	}
+
+
 }
