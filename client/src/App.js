@@ -9,6 +9,7 @@ import PrivateRoute from './components/privateRoute.js';
 import RegisterUser from './components/registerUser.js';
 import RegisterCompany from './components/registerCompany.js';
 import NewOffer from './components/newOffer.js';
+import OffersList from './components/offersList.js';
 
 import './styles/styles.scss';
 
@@ -27,6 +28,7 @@ export default class App extends Component {
             <Route exact path="/register/registerCompany" component={RegisterCompany} />
             <PrivateRoute exact path='/dashboard' component={Dashboard} />
             <PrivateRoute exact path='/newOffer' component={NewOffer} />
+            <PrivateRoute exact path='/offers' component={OffersList}/>
             <PrivateRoute exact path='/offers/:id' component={NewOffer}/>
           </Switch>
         </div>

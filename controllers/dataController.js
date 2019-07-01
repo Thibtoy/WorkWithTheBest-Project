@@ -345,8 +345,8 @@ exports.dataUsersOffers = function(req, res) {
 						 .catch(err => res.status(200).json('something went wrong'));
 }
 
-//1 year: 31 622 400 000ms
-//1 month: 2 592 000 000ms
-//1 day: 86 400 000ms
-//1 week: 604 800 000ms
-//1 hour: 3 600 000ms
+//1 year: 31 622 400 ms
+//1 month: 2 592 000ms
+//1 day: 86 400 ms
+//1 week: 604 800 ms
+//1 hour: 3 600 ms

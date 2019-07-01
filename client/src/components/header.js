@@ -53,6 +53,7 @@ export default class Header extends Component {
 						<ul>
 							<li className="headerLi" onClick={this.refresh}><Link to ="/dashboard">Dashboard</Link></li>
 							<li className="headerLi" onClick={this.refresh}><Link to="/newOffer">New Offer</Link></li>
+							<li className="headerLi" onClick={this.refresh}><Link to="/offers">Yours Offers</Link></li>
 						</ul>
 					</nav>
 				</header>

@@ -42,6 +42,10 @@ export default {
 
 	updateOffer: function(body) {
 		return axios.put(path+'/updateOffer', body, {headers});
+	},
+
+	offersList: function(body) {
+		return axios.post(path+'/offers', body, {headers});
 	}
 
 

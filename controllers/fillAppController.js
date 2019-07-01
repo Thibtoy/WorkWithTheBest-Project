@@ -107,6 +107,22 @@ exports.addOffer= function(req, res) {
 		 })
 }
 
+exports.offers = function(req, res) {
+	let offer = req.body;
+	let params = {
+		table: offer.type+'Offers',
+		fields: 'id, title, startDate, endDate, active',
+		where: {ownerId: offer.ownerId},
+		orderBy: {field: offer.type+'Offers.Id', order: 'DESC'},
+		limit: 5,
+	}
+
+	query.find(params, function(err, data){
+		if (err) res.status(400).json(err);
+		else res.status(200).json(data);
+	});
+}
+
 exports.getOffer = function(req, res) {
 	let offer = req.body;	
 

@@ -10,6 +10,9 @@ module.exports = function(app) {
 	app.route('/addOffer')
 	   .post(fillAppController.addOffer);
 
+	app.route('/offers')
+	   .post(fillAppController.offers);
+
 	app.route('/getOffer')
 	   .post(fillAppController.getOffer);
 
