@@ -3,11 +3,13 @@ exports.carrousel = function(req, res) {
 	let name = (req.body.type === 'users')? req.body.type+'.firstName, '+req.body.type+'.lastName':req.body.type+'.name';
 	let params = {
 		distinct: true,
-		fields: req.body.type+'Offers.ownerId, '+req.body.type+'Offers.id, title, content, '+name+', locations.name AS location, startDate, endDate', 
+		fields: req.body.type+'Offers.ownerId, '+req.body.type+
+		'Offers.id, title, content, '+name+', locations.name AS location, startDate, endDate', 
 		table: req.body.type+'Offers', 
 		innerJoin: {
 			first:{table: req.body.type, on: req.body.type+'.id = '+req.body.type+'Offers.ownerId'},
-			second:{table: req.body.type+'OffersToLocation AS ToLoc', on: req.body.type+'Offers.id = ToLoc.offerId'},
+			second:{table: req.body.type+'OffersToLocation AS ToLoc', on: req.body.type+
+			'Offers.id = ToLoc.offerId'},
 			third:{table: 'locations', on: 'ToLoc.locationId = locations.id'}
 		},
 		where:{active: 1},
@@ -21,6 +23,7 @@ exports.carrousel = function(req, res) {
 			res.status(200).json(err);
 		}
 		else {
+			console.log(data);
 			res.status(200).json(data);
 		}
 	})
@@ -135,7 +138,10 @@ exports.getOffer = function(req, res) {
 
 		query.find(params, function(err, data){
 			if (err) reject(err);
-			else resolve(data);
+			else {
+				console.log(data);
+				resolve(data);
+			}
 		});
 	});			
 
