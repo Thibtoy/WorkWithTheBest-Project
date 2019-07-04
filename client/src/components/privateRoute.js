@@ -12,17 +12,19 @@ export default class PrivateRoute extends React.Component{
 		}
 	}
 
-	componentDidMount() {
+	componentWillMount() {
 		let that = this;
 		API.isAuth()
-			.then(data => {that.setState({logged: true, loaded: true, user: data.data.user});})
+			.then(data => {that.setState({logged: true,
+			 loaded: true, user: data.data.user});})
 			.catch(err => {that.setState({loaded: true})});
 	}
 	
 	render() {
 		const {logged, loaded, user} = this.state;
 		if (loaded) {
-			if(logged) return <Route path={this.props.path}  render={(props) => <this.props.component {...props} user={user} />} />
+			if(logged) return (<Route path={this.props.path}  
+				render={(props) => <this.props.component {...props} user={user} />} />)
 			else return window.location = '/login';
 		}
 		else return null;
