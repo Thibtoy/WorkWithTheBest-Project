@@ -11,7 +11,10 @@ export default class Offer extends React.Component {
 					<div className="OfferBoxInfosContent">
 						<h5 className="MasterFontSet">{item.title}</h5>
 						<p className="ParagrapheFontSet">{item.location}</p>
-						<p className="LegendFontSet">start: {item.startDate} - end: {item.endDate}</p>
+						<div>
+							<p className="LegendFontSet">Start: {item.startDate}</p>
+							<p className="LegendFontSet">End: {item.endDate}</p>
+						</div>
 					</div>
 					<div className="OfferBoxInfosOptions"></div>
 				</div>

@@ -61,10 +61,14 @@ export default class Login extends React.Component {
   								<label htmlFor="companies">Company</label>
   							</div>
   						</div>
-                		<label htmlFor="email">Email</label>
-                		<input id="email" name="email" type="email" value={this.state.email} onChange={this.handleChange}/>
-                		<label htmlFor="password">Password</label>
-                		<input id="password" name="password" type="password" value={this.state.password} onChange={this.handleChange}/>
+  						<div className="FormGroupLabelCenter">
+                			<label htmlFor="email">Email</label>
+                			<input id="email" name="email" type="email" value={this.state.email} onChange={this.handleChange}/>
+                		</div>
+                		<div className="FormGroupLabelCenter">
+                			<label htmlFor="password">Password</label>
+                			<input id="password" name="password" type="password" value={this.state.password} onChange={this.handleChange}/>
+                		</div>
                 	</div>
                 	<div className="FormButton" onClick={this.handleSubmit}>Connexion</div>
 				</form>

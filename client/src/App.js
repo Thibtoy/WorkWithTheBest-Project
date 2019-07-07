@@ -24,7 +24,7 @@ export default class App extends Component {
             <Route exact path="/" component={HomePage} />
             <Route exact path="/register" component={Register}/>
             <Route exact path="/login" component={Login} />
-            <Route exact path={'/register/registerUser'} component={RegisterUser} />
+            <Route exact path="/register/registerUser" component={RegisterUser} />
             <Route exact path="/register/registerCompany" component={RegisterCompany} />
             <PrivateRoute exact path='/dashboard' component={Dashboard} />
             <PrivateRoute exact path='/newOffer' component={NewOffer} />

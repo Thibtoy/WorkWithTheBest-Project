@@ -15,9 +15,9 @@
 
 #NavBar {
 	text-align: center;
-    margin-top: -2.8vh;
+	margin-top: -25px;
 	width: 100%;
-	height: 3%;
+	height: 25px;
 	transition: all 0.4s ease-out;
 	box-shadow: 0 0.1em 0.4em black;
 		ul {
@@ -29,7 +29,7 @@
 .headerTop {
 	text-align: center;
   width: 100%;
-  height: 5%;
+  height: 40px;
   display: flex;
   justify-content: space-between;
   z-index: 12;
@@ -38,7 +38,7 @@
 .headerTopLi {
 	text-align: center;
   @include flxRowCtr();
-  width: 3.75%;
+  width: 50px;
 }
 
 .headerLi {
@@ -59,9 +59,4 @@
 		&:hover{
 			cursor: pointer;
 		};
-}
-
-.HeaderButtonActive {
-	border-radius: 15%;
-	background-color: $color7;
 }

@@ -15,17 +15,13 @@ body {
 
 .DashboardFilterIcon {
 	width: 5%;
-	position: relative;
-	left: 47%;
-	top: 5px;
+	float: right;
+	margin: 0.75%;
 }
 
 .DashboardOffersShow {
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-evenly;
-/*    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-row-gap: 6%;*/
     width: 100%;
 }

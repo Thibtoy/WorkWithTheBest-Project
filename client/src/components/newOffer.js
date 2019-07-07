@@ -104,7 +104,6 @@ export default class NewOffer extends React.Component {
 					.then( (data) => {
 						let states = {}
 						for (let prop in data.data[0]) {
-							console.log(data.data[0][prop])
 							data.data[0][prop] = (prop === "startDate" || prop === "endDate")? data.data[0][prop].slice(0, 10): data.data[0][prop];
 							states[prop] = data.data[0][prop]
 						}

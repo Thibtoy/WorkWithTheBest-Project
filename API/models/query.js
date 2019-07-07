@@ -40,12 +40,14 @@ function where(where) {
 			if (param === 'like') {
 				for (let field in where[param]){
 					where[param][field].forEach(function(item, i){
-						query += (i === 0)? field+" LIKE '"+mysqlEscape(item.toString())+"%'" : " '%"+mysqlEscape(item.toString())+"%'";
+						query += (i === 0)? field+" LIKE '"+mysqlEscape(item.toString())+
+						"%'" : " '%"+mysqlEscape(item.toString())+"%'";
 					})
 				}
 			}
 			else {
-				query += (count === 0)? param+" = '"+mysqlEscape(where[param].toString())+"'" : ' OR '+param+" = '"+mysqlEscape(where[param].toString())+"'";
+				query += (count === 0)? param+" = '"+mysqlEscape(where[param].toString())+
+				"'" : ' OR '+param+" = '"+mysqlEscape(where[param].toString())+"'";
 				count++
 			}
 		}
