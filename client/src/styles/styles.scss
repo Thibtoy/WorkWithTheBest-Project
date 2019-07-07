@@ -9,9 +9,17 @@
 
 body {
   width: 100vw;
+  height: 100vh;
   background-size: cover;
   background-repeat: no-repeat;
+  background-position: center;
   overflow-X: hidden;
+}
+
+h1 {
+      @media screen and (max-width: 380px) {
+      font-size: 1.5em;
+    }
 }
 
 ::-webkit-scrollbar {

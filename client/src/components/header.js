@@ -11,19 +11,19 @@ export default class Header extends Component {
 				header: [],
 				menu: false,
 				pageName: '',
+				menuImg: process.env.PUBLIC_URL+'/images/hamburger.svg',
+				menuImgActive: process.env.PUBLIC_URL+'/images/hamburgerActive.svg', 
 		}
 	}
 
 	menuClick = event => {
 		let menu = document.getElementById('NavBar');
 		if (this.state.menu === false) {
-			event.target.classList.add('HeaderButtonActive');
 			menu.style.marginTop = '0';
 			this.setState({menu:true});
 		}
 		else {
-			event.target.classList.remove('HeaderButtonActive');
-			menu.style.marginTop = '-2.8vh';
+			menu.style.marginTop = '-25px';
 			this.setState({menu:false});
 		}
 	}
@@ -51,9 +51,9 @@ export default class Header extends Component {
 					</ul>
 					<nav id="NavBar">
 						<ul>
-							<li className="headerLi" onClick={this.refresh}><Link to ="/dashboard">Dashboard</Link></li>
-							<li className="headerLi" onClick={this.refresh}><Link to="/newOffer">New Offer</Link></li>
-							<li className="headerLi" onClick={this.refresh}><Link to="/offers">Yours Offers</Link></li>
+							<li className="headerLi" onClick={this.refresh}><h4><Link className="MasterFontSet" to="/dashboard">Dashboard</Link></h4></li>
+							<li className="headerLi" onClick={this.refresh}><h4><Link className="MasterFontSet" to="/newOffer">New Offer</Link></h4></li>
+							<li className="headerLi" onClick={this.refresh}><h4><Link className="MasterFontSet" to="/offers">Yours Offers</Link></h4></li>
 						</ul>
 					</nav>
 				</header>
