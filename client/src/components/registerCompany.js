@@ -62,16 +62,28 @@ export default class RegisterCompany extends Component {
 			<div id="Register">
 				<form method="POST" className="Form RegisterForm">
 					<h3 className="FormMasterFontSet">Company Account</h3>
-					<label htmlFor="name">Name :</label>
-					<input id="name" name="name" type="name" onChange={this.handleChange}/>
-					<label htmlFor="siret">Siret :</label>
-					<input id="siret" name="siret" type="siret" onChange={this.handleChange}/>
-					<label htmlFor="email">Email :</label>
-					<input id="email" name="email" type="email" onChange={this.handleChange}/>
-					<label htmlFor="password">Password :</label>
-					<input id="password" name="password" type="password" onChange={this.handleChange}/>
-					<label htmlFor="password2">Confirm password :</label>
-					<input id="password2" name="password2" type="password" onChange={this.handleChange}/>
+					<div className="FormInputContainer RegisterInputContainer">
+						<div className="FormGroupLabel">
+							<label htmlFor="name">Name :</label>
+							<input id="name" name="name" type="name" onChange={this.handleChange}/>
+						</div>	
+						<div className="FormGroupLabel">
+							<label htmlFor="siret">Siret :</label>
+							<input id="siret" name="siret" type="siret" onChange={this.handleChange}/>
+						</div>	
+						<div className="FormGroupLabel">
+							<label htmlFor="email">Email :</label>
+							<input id="email" name="email" type="email" onChange={this.handleChange}/>
+						</div>	
+						<div className="FormGroupLabel">
+							<label htmlFor="password">Password :</label>
+							<input id="password" name="password" type="password" onChange={this.handleChange}/>
+						</div>	
+						<div className="FormGroupLabel">
+							<label htmlFor="password2">Confirm password :</label>
+							<input id="password2" name="password2" type="password" onChange={this.handleChange}/>
+						</div>	
+					</div>
 					<p className="FormErrorFont">{this.state.errorMessage}</p>
 					<div className="FormButton" onClick={this.handleSubmit}>Confirm</div>
 				</form>
