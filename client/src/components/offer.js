@@ -6,10 +6,10 @@ export default class Offer extends React.Component {
 		const item = this.props.data;
 		return(
 			<div className="OfferBox">
+				<h5 className="MasterFontSet">{item.title}</h5>
 				<div className="OfferBoxInfos">
 					<img className="OfferBoxInfosAvatar" src={process.env.PUBLIC_URL+'/images/building.svg'} alt="Avatar"></img>
 					<div className="OfferBoxInfosContent">
-						<h5 className="MasterFontSet">{item.title}</h5>
 						<p className="ParagrapheFontSet">{item.location}</p>
 						<div>
 							<p className="LegendFontSet">Start: {item.startDate}</p>

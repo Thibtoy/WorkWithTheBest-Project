@@ -67,7 +67,8 @@
 }
 
 .FormGroupLabel {
-	width: 100%;
+	width: auto;
+	margin: auto;
 	@include flxColCtr();
 	align-items: flex-start;
 }

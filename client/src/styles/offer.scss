@@ -4,10 +4,29 @@
 	width: 40%;
 	height: 17vw;
 	margin-bottom: 5%;
+	padding: 0.4% 0.2%;
+	border-radius: 3px;
+	box-shadow: 0.2em 0.1em 0.4em black;
 	@include flxColCtr();
 	background-color: $color4;
 	justify-content: space-evenly;
 	flex: 0 0 40%;
+		@media screen and (max-width: 1050px) and (min-height: 1000px) {
+			width: 66%;
+			height: 19vh;
+			flex: 0 0 66%;
+    	}
+		@media screen and (max-width: 500px) {
+			width: 95%;
+			height: 35vh;
+			flex: 0 0 85%;
+			padding-bottom: 1.5%;
+    	}
+		@media screen and (max-height: 500px) {
+			width: 85%;
+			height: 50vh;
+			flex: 0 0 85%;
+    	}
 }
 
 .OfferBoxInfos{
@@ -18,6 +37,12 @@
 
 .OfferBoxInfosAvatar{
 	height:5vw;
+		@media screen and (max-width: 500px) {
+			height: 10vw;
+    	}
+    	@media screen and (max-height: 500px) {
+			height: 8vw;
+    	}
 }
 
 .OfferBoxInfosContent{
@@ -39,5 +64,6 @@
 }
 
 .OfferBoxMainContent{
-	
+	height: 80%;
+	overflow-y: scroll;
 }
